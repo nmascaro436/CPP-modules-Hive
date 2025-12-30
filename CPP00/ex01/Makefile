@@ -1,7 +1,7 @@
-NAME = megaphone
+NAME = phonebook
 CC = c++
 CFLAGS = -Wall -Wextra -Werror
-SRCS = megaphone.cpp
+SRCS = PhoneBook.cpp Contact.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 .SECONDARY: $(OBJS)
