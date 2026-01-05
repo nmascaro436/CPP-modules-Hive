@@ -2,8 +2,20 @@
 
 void PhoneBook::add_contact()
 {
+	Contact contact_info;
+	std::string first_name;
+	std::string last_name;
+	std::string	nickname;
+	std::string num;
+	std::string secret;
+
+	std::cout << "Enter your first name." << std::endl;
+	std::cin >> first_name;
 
 }
+// Make sure none of the fields are empty!!!!
+// Handle the case where you already have 8 contacts (replace the oldest)
+
 void PhoneBook::display_contact()
 {
 
@@ -13,9 +25,4 @@ void PhoneBook::exit_book()
 {
 
 }
-/**
- * Possibly i will need to use these:
- * -std::string name and then name.empty() (returns true or false depending if its empty or not)
- * -std::string text = "Hello World"; size_t pos = text.find("World");  // returns 6 (position where "World" starts)
- * -  std::cout << std::setw(10); std::cout << 77 << std::endl; // number of chars to be used as field width
-*/
+
