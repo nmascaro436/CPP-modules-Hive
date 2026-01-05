@@ -41,12 +41,25 @@ int PhoneBook::add_contact()
 	return 0;
 }
 
+std::string format_table(std::string str)
+{
+	if (str.length() > 10)
+		return str.substr(0, 9) + ".";
+	else
+		return str;
+}
+
 void PhoneBook::display_contact()
 {
 	for (int i = 0; i < total_contacts; i++)
 	{
 		std::cout << std::setw(10) << i << '|'
+				<< std::setw(10) << format_table(contacts[i].get_first_name()) << '|'
+				<< std::setw(10) << format_table(contacts[i].get_last_name()) << '|'
+				<< std::setw(10) << format_table(contacts[i].get_nickname())
+				<< std::endl;
 	}
 }
-
+// prompt user again for the index of the entry to display, if it's wrong throw some error and return,
+// otherwise display contact information 1 line = 1 field
 
