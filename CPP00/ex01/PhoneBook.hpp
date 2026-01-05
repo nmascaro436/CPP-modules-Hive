@@ -6,6 +6,7 @@
 // (useful for assigning values to attributes as arguments), it has the same name as the CLASS
 //
 #include <iostream>
+#include <iomanip>
 #include "Contact.hpp"
 
 class PhoneBook
@@ -13,9 +14,11 @@ class PhoneBook
 	private:
 	Contact contacts[8];
 	unsigned int total_contacts;
+	int next_index;
 
 	public:
-	void add_contact();
+	PhoneBook();
+	int add_contact();
 	void display_contact();
 	void exit_book();
 };

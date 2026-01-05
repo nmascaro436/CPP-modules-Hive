@@ -8,8 +8,12 @@
 
 int main()
 {
+	std::string word;
+	std::cout << "Welcome to the PhoneBook. Please enter one of the following: ADD, SEARCH, EXIT." << std::endl;
+	std::cin >> word;
+	if (word == "ADD")
+		add_contact();
+	else if (word == "SEARCH")
+		display_contact();
 
 }
-// std::string word
-// std::cout << "Welcome to the PhoneBook. Please enter one of the following: ADD, SEARCH, EXIT." << std::endl
-// std::cin >> word;
