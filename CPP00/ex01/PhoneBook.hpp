@@ -10,8 +10,10 @@
 
 class PhoneBook
 {
+	private:
 	Contact contacts[8];
 
+	public:
 	void add_contact();
 	void display_contact();
 	void exit_book();
