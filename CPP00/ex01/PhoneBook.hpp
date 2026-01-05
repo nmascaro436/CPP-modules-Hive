@@ -12,6 +12,7 @@ class PhoneBook
 {
 	private:
 	Contact contacts[8];
+	unsigned int total_contacts;
 
 	public:
 	void add_contact();
