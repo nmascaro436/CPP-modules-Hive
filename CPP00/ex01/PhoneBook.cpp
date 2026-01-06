@@ -54,6 +54,7 @@ std::string formatTable(std::string str)
 
 void PhoneBook::displayContact()
 {
+	int index = 0;
 	if (_totalContacts == 0)
 	{
 		std::cout << "Phonebook is empty. Please add some contacts." << std::endl;
@@ -67,7 +68,28 @@ void PhoneBook::displayContact()
 				<< std::setw(10) << formatTable(_contacts[i].getNickname())
 				<< std::endl;
 	}
+	std::cout << "Enter the index of the contact you want to see: " << std::endl;
+	std::cin >> index;
+	if (std::cin.fail()) // just in case someone enters alphabetical chars
+	{
+		std::cout << "Invalid index. Enter a number." << std::endl;
+		std::cin.clear(); // clear error state
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // clear buffer
+	}
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // clear newline (throw away as many chars as needed but stop when you hit a newline)
+	if (index < 0 || index > _totalContacts - 1)
+	{
+		std::cout << "Invalid index. Try again." << std::endl;
+		return ;
+	}
+	else
+	{
+		std::cout << "First name: " << _contacts[index].getFirstName() << std::endl;
+		std::cout << "Last name: " << _contacts[index].getLastName() << std::endl;
+		std::cout << "Nickname: " << _contacts[index].getNickname() << std::endl;
+		std::cout << "Phone number: " << _contacts[index].getNum() << std::endl;
+		std::cout << "Darkest secret: " << _contacts[index].getSecret() << std::endl;
+	}
 }
-// prompt user again for the index of the entry to display, if it's wrong throw some error and return,
-// otherwise display contact information 1 line = 1 field
+
 

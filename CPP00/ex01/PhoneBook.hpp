@@ -7,9 +7,11 @@
 //
 #ifndef PHONEBOOK_HPP
 #define PHONEBOOK_HPP
+
 #pragma once // prevents multiple inclusion of the same header
 
 #include <iomanip>
+#include <limits>
 #include "Contact.hpp"
 
 class PhoneBook
