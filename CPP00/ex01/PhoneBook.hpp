@@ -40,7 +40,7 @@ class PhoneBook
 {
 	private:
 	Contact _contacts[8];
-	unsigned int _totalContacts;
+	int _totalContacts;
 	int _nextIndex;
 
 	public:

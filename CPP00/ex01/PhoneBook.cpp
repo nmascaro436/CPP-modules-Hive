@@ -12,15 +12,15 @@ void PhoneBook::addContact()
 	std::string firstName, lastName, nickname, num, secret;
 	Contact addedContact;
 
-	std::cout << "First name: " << std::endl;
+	std::cout << "First name: ";
 	std::getline(std::cin, firstName);
-	std::cout << "Last name: " << std::endl;
+	std::cout << "Last name: ";
 	std::getline(std::cin, lastName);
-	std::cout << "Nickname: " << std::endl;
+	std::cout << "Nickname: ";
 	std::getline(std::cin, nickname);
-	std::cout << "Phone number: " << std::endl;
+	std::cout << "Phone number: ";
 	std::getline(std::cin, num);
-	std::cout << "Darkest secret: " << std::endl;
+	std::cout << "Darkest secret: ";
 	std::getline(std::cin, secret);
 
 	if (firstName.empty() || lastName.empty() || nickname.empty()|| num.empty() || secret.empty())
