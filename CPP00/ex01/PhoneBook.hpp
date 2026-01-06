@@ -5,20 +5,26 @@
 // CONSTRUCTOR is a special METHOD that is automatically called when an OBJECT is instantiated
 // (useful for assigning values to attributes as arguments), it has the same name as the CLASS
 //
-#include <iostream>
+#ifndef PHONEBOOK_HPP
+#define PHONEBOOK_HPP
+#pragma once // prevents multiple inclusion of the same header
+
 #include <iomanip>
 #include "Contact.hpp"
 
 class PhoneBook
 {
 	private:
-	Contact contacts[8];
-	unsigned int total_contacts;
-	int next_index;
+	Contact _contacts[8];
+	unsigned int _totalContacts;
+	int _nextIndex;
 
 	public:
 	PhoneBook();
-	int add_contact();
-	void display_contact();
-	void exit_book();
+	~PhoneBook();
+
+	void addContact();
+	void displayContact();
 };
+
+#endif

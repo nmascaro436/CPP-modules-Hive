@@ -2,46 +2,49 @@
 
 PhoneBook::PhoneBook()
 {
-	total_contacts = 0;
-	next_index = 0;
+	_totalContacts = 0;
+	_nextIndex = 0;
 }
+PhoneBook::~PhoneBook(){}
 
-int PhoneBook::add_contact()
+void PhoneBook::addContact()
 {
-	std::string first_name;
-	std::string last_name;
-	std::string	nickname;
-	std::string num;
-	std::string secret;
+	std::string firstName, lastName, nickname, num, secret;
+	Contact addedContact;
 
-	std::cout << "Enter your first name." << std::endl;
-	std::cin >> first_name;
-	std::cout << "Enter your last name." << std::endl;
-	std::cin >> last_name;
-	std::cout << "Enter your nickname." << std::endl;
-	std::cin >> nickname;
-	std::cout << "Enter your phone number." << std::endl;
-	std::cin >> num;
-	std::cout << "Enter your darkest secret." << std::endl;
-	std::cin >> secret;
-	if (first_name == "" || last_name == "" || nickname  == "" || num == "" || secret == "")
+	std::cout << "First name: " << std::endl;
+	std::getline(std::cin, firstName);
+	std::cout << "Last name: " << std::endl;
+	std::getline(std::cin, lastName);
+	std::cout << "Nickname: " << std::endl;
+	std::getline(std::cin, nickname);
+	std::cout << "Phone number: " << std::endl;
+	std::getline(std::cin, num);
+	std::cout << "Darkest secret: " << std::endl;
+	std::getline(std::cin, secret);
+
+	if (firstName.empty() || lastName.empty() || nickname.empty()|| num.empty() || secret.empty())
 	{
-		std::cout << "Field can't be empty." << std::endl; // maybe use std::getline???
-		return 1;
+		std::cout << "Field can't be empty." << std::endl;
+		return ;
 	}
-	Contact contact_info(first_name, last_name, nickname, num, secret);
-	contacts[next_index] = contact_info;
-	if (total_contacts < 8)
+	addedContact.setFirstName (firstName);
+	addedContact.setLastName (lastName);
+	addedContact.setNickname (nickname);
+	addedContact.setNum (num);
+	addedContact.setSecret (secret);
+	_contacts[_nextIndex] = addedContact;
+	std::cout << "Contact successfully added at index " << _nextIndex << std::endl;
+	if (_totalContacts < 8)
 	{
-		total_contacts++;
+		_totalContacts++;
 	}
-	next_index++;
-	if (next_index == 8)
-		next_index = 0;
-	return 0;
+	_nextIndex++;
+	if (_nextIndex == 8)
+		_nextIndex = 0;
 }
 
-std::string format_table(std::string str)
+std::string formatTable(std::string str)
 {
 	if (str.length() > 10)
 		return str.substr(0, 9) + ".";
@@ -49,14 +52,19 @@ std::string format_table(std::string str)
 		return str;
 }
 
-void PhoneBook::display_contact()
+void PhoneBook::displayContact()
 {
-	for (int i = 0; i < total_contacts; i++)
+	if (_totalContacts == 0)
+	{
+		std::cout << "Phonebook is empty. Please add some contacts." << std::endl;
+		return ;
+	}
+	for (int i = 0; i < _totalContacts; i++)
 	{
 		std::cout << std::setw(10) << i << '|'
-				<< std::setw(10) << format_table(contacts[i].get_first_name()) << '|'
-				<< std::setw(10) << format_table(contacts[i].get_last_name()) << '|'
-				<< std::setw(10) << format_table(contacts[i].get_nickname())
+				<< std::setw(10) << formatTable(_contacts[i].getFirstName()) << '|'
+				<< std::setw(10) << formatTable(_contacts[i].getLastName()) << '|'
+				<< std::setw(10) << formatTable(_contacts[i].getNickname())
 				<< std::endl;
 	}
 }

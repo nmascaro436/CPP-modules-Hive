@@ -1,43 +1,50 @@
 #include "Contact.hpp"
 
-Contact::Contact(std::string first_name, std::string last_name, std::string nickname, std::string num,
-	std::string secret)
+Contact::Contact() {}
+
+Contact::~Contact(){}
+
+std::string Contact::getFirstName()
 {
-		this->first_name = first_name;
-		this->last_name = last_name;
-		this->nickname = nickname;
-		this->num = num;
-		this->secret = secret;
-}
-Contact::Contact()
-{
-	first_name = "";
-	last_name = "";
-	nickname = "";
-	num = "";
-	secret = "";
-}
-std::string Contact::get_first_name()
-{
-	return first_name;
+	return _firstName;
 }
 
-std::string Contact::get_last_name()
+std::string Contact::getLastName()
 {
-	return last_name;
+	return _lastName;
 }
 
-std::string Contact::get_nickname()
+std::string Contact::getNickname()
 {
-	return nickname;
+	return _nickname;
 }
 
-std::string Contact::get_num()
+std::string Contact::getNum()
 {
-	return num;
+	return _num;
 }
 
-std::string Contact::get_secret()
+std::string Contact::getSecret()
 {
-	return secret;
+	return _secret;
+}
+void Contact::setFirstName(std::string firstName)
+{
+	this->_firstName = firstName;
+}
+void Contact::setLastName(std::string LastName)
+{
+	this->_lastName = LastName;
+}
+void Contact::setNickname(std::string nickname)
+{
+	this->_nickname = nickname;
+}
+void Contact::setNum(std::string num)
+{
+	this->_num = num;
+}
+void Contact::setSecret(std::string secret)
+{
+	this->_secret = secret;
 }

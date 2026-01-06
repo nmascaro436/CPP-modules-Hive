@@ -9,11 +9,18 @@
 int main()
 {
 	std::string word;
-	std::cout << "Welcome to the PhoneBook. Please enter one of the following: ADD, SEARCH, EXIT." << std::endl;
-	std::cin >> word;
-	if (word == "ADD")
-		add_contact();
-	else if (word == "SEARCH")
-		display_contact();
+	PhoneBook phonebook;
 
+	std::cout << "Welcome to the PhoneBook." << std::endl;
+	while (true)
+	{ 
+		std::cout << "Please enter one of the following: ADD, SEARCH, EXIT." << std::endl;
+		std::getline(std::cin, word);
+		if (word == "ADD")
+			phonebook.addContact();
+		else if (word == "SEARCH")
+			phonebook.displayContact();
+		else if (word == "EXIT")
+			break;
+	}
 }
