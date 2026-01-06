@@ -13,6 +13,28 @@
 #include <iomanip>
 #include <limits>
 #include "Contact.hpp"
+#define RED        "\033[31m"
+#define GREEN      "\033[32m"
+#define VIOLET     "\033[35m"
+#define BLUE "\033[38;2;173;216;230m"
+#define RESET      "\033[0m"
+//std::cout << RED << "Red text from file1!" << RESET << "\n";
+/**
+ *  std::cout << BLUE;
+    std::cout << "====================================\n";  
+    std::cout << RESET;
+
+    std::cout << VIOLET;
+    std::cout << "  ____ ___  _    _ ____  _       \n";
+    std::cout << " / ___| _ \\| |  | |  _ \\| |_ ___ \n";
+    std::cout << "| |  _|  _/| |  | | |_) |   _|_ |\n";
+    std::cout << "|_| |_||_|  |_|  |_|____/ \\__|_| \n";
+    std::cout << RESET;
+
+    std::cout << BLUE;
+    std::cout << "====================================\n";
+    std::cout << RESET;
+ */
 
 class PhoneBook
 {
