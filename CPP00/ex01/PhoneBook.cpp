@@ -12,20 +12,20 @@ void PhoneBook::addContact()
 	std::string firstName, lastName, nickname, num, secret;
 	Contact addedContact;
 
-	std::cout << "First name: ";
+	std::cout << VIOLET << "First name: " << RESET;
 	std::getline(std::cin, firstName);
-	std::cout << "Last name: ";
+	std::cout << VIOLET << "Last name: " << RESET;
 	std::getline(std::cin, lastName);
-	std::cout << "Nickname: ";
+	std::cout << VIOLET << "Nickname: " << RESET;
 	std::getline(std::cin, nickname);
-	std::cout << "Phone number: ";
+	std::cout << VIOLET << "Phone number: " << RESET;
 	std::getline(std::cin, num);
-	std::cout << "Darkest secret: ";
+	std::cout << VIOLET << "Darkest secret: " << RESET;
 	std::getline(std::cin, secret);
 
 	if (firstName.empty() || lastName.empty() || nickname.empty()|| num.empty() || secret.empty())
 	{
-		std::cout << "Field can't be empty." << std::endl;
+		std::cout << RED << "Field can't be empty." << RESET << std::endl;
 		return ;
 	}
 	addedContact.setFirstName (firstName);
@@ -34,7 +34,7 @@ void PhoneBook::addContact()
 	addedContact.setNum (num);
 	addedContact.setSecret (secret);
 	_contacts[_nextIndex] = addedContact;
-	std::cout << "Contact successfully added at index " << _nextIndex << std::endl;
+	std::cout << GREEN << "Contact successfully added at index " << RESET << _nextIndex << std::endl;
 	if (_totalContacts < 8)
 	{
 		_totalContacts++;
@@ -57,7 +57,7 @@ void PhoneBook::displayContact()
 	int index = 0;
 	if (_totalContacts == 0)
 	{
-		std::cout << "Phonebook is empty. Please add some contacts." << std::endl;
+		std::cout << RED << "Phonebook is empty. Please add some contacts." << RESET << std::endl;
 		return ;
 	}
 	for (int i = 0; i < _totalContacts; i++)
@@ -68,18 +68,19 @@ void PhoneBook::displayContact()
 				<< std::setw(10) << formatTable(_contacts[i].getNickname())
 				<< std::endl;
 	}
-	std::cout << "Enter the index of the contact you want to see: " << std::endl;
+	std::cout << VIOLET << "Enter the index of the contact you want to see: " << RESET;
 	std::cin >> index;
 	if (std::cin.fail()) // just in case someone enters alphabetical chars
 	{
-		std::cout << "Invalid index. Enter a number." << std::endl;
+		std::cout << RED << "Invalid index. Enter a number:" << RESET;
 		std::cin.clear(); // clear error state
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // clear buffer
+		return ;
 	}
 	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // clear newline (throw away as many chars as needed but stop when you hit a newline)
 	if (index < 0 || index > _totalContacts - 1)
 	{
-		std::cout << "Invalid index. Try again." << std::endl;
+		std::cout << RED << "Invalid index. Try again." << RESET << std::endl;
 		return ;
 	}
 	else
