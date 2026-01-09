@@ -7,32 +7,46 @@ PhoneBook::PhoneBook()
 }
 PhoneBook::~PhoneBook(){}
 
+std::string PhoneBook::readRequiredField(std::string prompt)
+{
+	std::string input;
+
+	while (true)
+	{
+		std::cout << VIOLET << prompt << RESET;
+		if (!std::getline(std::cin, input)) // if ctrl + d
+			return ""; 
+		if (!input.empty() && input.find_first_not_of(" \t\n\r") != std::string::npos) // looks for the first char that is not a space char, if it returns npos means it was all spaces (it returns the first non space)
+			return input;
+		std::cout << RED << "Field can't be empty." << RESET << std::endl;
+	}
+}
 void PhoneBook::addContact()
 {
-	std::string firstName, lastName, nickname, num, secret;
 	Contact addedContact;
+	std::string input;
 
-	std::cout << VIOLET << "First name: " << RESET;
-	std::getline(std::cin, firstName);
-	std::cout << VIOLET << "Last name: " << RESET;
-	std::getline(std::cin, lastName);
-	std::cout << VIOLET << "Nickname: " << RESET;
-	std::getline(std::cin, nickname);
-	std::cout << VIOLET << "Phone number: " << RESET;
-	std::getline(std::cin, num);
-	std::cout << VIOLET << "Darkest secret: " << RESET;
-	std::getline(std::cin, secret);
-
-	if (firstName.empty() || lastName.empty() || nickname.empty()|| num.empty() || secret.empty())
-	{
-		std::cout << RED << "Field can't be empty." << RESET << std::endl;
+	input = readRequiredField("First name: ");
+	if (input.empty()) // ctrl + d
 		return ;
-	}
-	addedContact.setFirstName (firstName);
-	addedContact.setLastName (lastName);
-	addedContact.setNickname (nickname);
-	addedContact.setNum (num);
-	addedContact.setSecret (secret);
+	addedContact.setFirstName(input);
+	input = readRequiredField("Last name: ");
+	if (input.empty()) // ctrl + d
+		return ;
+	addedContact.setLastName(input);
+	input = readRequiredField("Nickname: ");
+	if (input.empty()) // ctrl + d
+		return ;
+	addedContact.setNickname(input);
+	input = readRequiredField("Phone number: ");
+	if (input.empty()) // ctrl + d
+		return ;
+	addedContact.setNum(input);
+	input = readRequiredField("Darkest secret: ");
+	if (input.empty()) // ctrl + d
+		return ;
+	addedContact.setSecret(input);
+
 	_contacts[_nextIndex] = addedContact;
 	std::cout << GREEN << "Contact successfully added at index " << RESET << _nextIndex << std::endl;
 	if (_totalContacts < 8)
@@ -44,7 +58,7 @@ void PhoneBook::addContact()
 		_nextIndex = 0;
 }
 
-std::string formatTable(std::string str)
+std::string PhoneBook::formatTable(std::string str)
 {
 	if (str.length() > 10)
 		return str.substr(0, 9) + ".";
@@ -68,29 +82,36 @@ void PhoneBook::displayContact()
 				<< std::setw(10) << formatTable(_contacts[i].getNickname())
 				<< std::endl;
 	}
-	std::cout << VIOLET << "Enter the index of the contact you want to see: " << RESET;
-	std::cin >> index;
-	if (std::cin.fail()) // just in case someone enters alphabetical chars
+	while (true)
 	{
-		std::cout << RED << "Invalid index. Enter a number:" << RESET;
-		std::cin.clear(); // clear error state
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // clear buffer
-		return ;
+		std::cout << VIOLET << "Enter the index of the contact you want to see: " << RESET;
+		std::cin >> index;
+		if (std:: cin.eof()) // if someone does ctrl + d
+		{
+			std::cin.clear();
+			return;
+		} 
+		if (std::cin.fail()) // just in case someone enters alphabetical chars
+		{
+			std::cout << RED << "Invalid index. Enter a number." << RESET << std::endl;
+			std::cin.clear(); // clear error state
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // clear buffer
+			continue ;
+		}
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // clear newline (throw away as many chars as needed but stop when you hit a newline)
+		if (index < 0 || index >= _totalContacts)
+		{
+			std::cout << RED << "Invalid index. Try again." << RESET << std::endl;
+			continue ;
+		}
+		break;
 	}
-	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // clear newline (throw away as many chars as needed but stop when you hit a newline)
-	if (index < 0 || index > _totalContacts - 1)
-	{
-		std::cout << RED << "Invalid index. Try again." << RESET << std::endl;
-		return ;
-	}
-	else
-	{
-		std::cout << "First name: " << _contacts[index].getFirstName() << std::endl;
-		std::cout << "Last name: " << _contacts[index].getLastName() << std::endl;
-		std::cout << "Nickname: " << _contacts[index].getNickname() << std::endl;
-		std::cout << "Phone number: " << _contacts[index].getNum() << std::endl;
-		std::cout << "Darkest secret: " << _contacts[index].getSecret() << std::endl;
-	}
+
+	std::cout << "First name: " << _contacts[index].getFirstName() << std::endl;
+	std::cout << "Last name: " << _contacts[index].getLastName() << std::endl;
+	std::cout << "Nickname: " << _contacts[index].getNickname() << std::endl;
+	std::cout << "Phone number: " << _contacts[index].getNum() << std::endl;
+	std::cout << "Darkest secret: " << _contacts[index].getSecret() << std::endl;
 }
 
 

@@ -25,7 +25,9 @@ class PhoneBook
 	Contact _contacts[8];
 	int _totalContacts;
 	int _nextIndex;
-
+   std::string readRequiredField(std::string prompt);
+   std::string formatTable(std::string str);
+   
 	public:
 	PhoneBook();
 	~PhoneBook();
