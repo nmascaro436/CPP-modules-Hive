@@ -1,7 +1,7 @@
-NAME = 
+NAME = sed
 CC = c++
 CFLAGS = -Wall -Wextra -Werror
-SRCS = 
+SRCS = main.cpp Sed.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 .SECONDARY: $(OBJS)
