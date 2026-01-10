@@ -1,7 +1,7 @@
-NAME = 
+NAME = brain
 CC = c++
 CFLAGS = -Wall -Wextra -Werror
-SRCS = 
+SRCS = main.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 .SECONDARY: $(OBJS)
