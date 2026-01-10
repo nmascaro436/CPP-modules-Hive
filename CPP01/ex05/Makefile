@@ -1,7 +1,7 @@
-NAME = 
+NAME = harl
 CC = c++
 CFLAGS = -Wall -Wextra -Werror
-SRCS = 
+SRCS = main.cpp Harl.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 .SECONDARY: $(OBJS)
