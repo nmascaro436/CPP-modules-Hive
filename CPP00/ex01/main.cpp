@@ -1,7 +1,3 @@
-// when i press ctr+d something weird happens!!! need to fix
-
-
-
 #include "PhoneBook.hpp"
 
 int main()

@@ -7,6 +7,13 @@ PhoneBook::PhoneBook()
 }
 PhoneBook::~PhoneBook(){}
 
+/**
+ * Ensures that the value entered is never empty.
+ * Loops until valid input is received. Reads a line of input, if EOF (ctrl + D),
+ * it returns an empty string.
+ * If input is not empty and is not all whitespace (function searches for the first char that
+ * is not a space), the input is valid so it returns.
+ */
 std::string PhoneBook::readRequiredField(std::string prompt)
 {
 	std::string input;
@@ -14,9 +21,9 @@ std::string PhoneBook::readRequiredField(std::string prompt)
 	while (true)
 	{
 		std::cout << VIOLET << prompt << RESET;
-		if (!std::getline(std::cin, input)) // if ctrl + d
-			return ""; 
-		if (!input.empty() && input.find_first_not_of(" \t\n\r") != std::string::npos) // looks for the first char that is not a space char, if it returns npos means it was all spaces (it returns the first non space)
+		if (!std::getline(std::cin, input))
+			return "";
+		if (!input.empty() && input.find_first_not_of(" \t\n\r") != std::string::npos)
 			return input;
 		std::cout << RED << "Field can't be empty." << RESET << std::endl;
 	}
@@ -27,23 +34,23 @@ void PhoneBook::addContact()
 	std::string input;
 
 	input = readRequiredField("First name: ");
-	if (input.empty()) // ctrl + d
+	if (input.empty())
 		return ;
 	addedContact.setFirstName(input);
 	input = readRequiredField("Last name: ");
-	if (input.empty()) // ctrl + d
+	if (input.empty())
 		return ;
 	addedContact.setLastName(input);
 	input = readRequiredField("Nickname: ");
-	if (input.empty()) // ctrl + d
+	if (input.empty())
 		return ;
 	addedContact.setNickname(input);
 	input = readRequiredField("Phone number: ");
-	if (input.empty()) // ctrl + d
+	if (input.empty())
 		return ;
 	addedContact.setNum(input);
 	input = readRequiredField("Darkest secret: ");
-	if (input.empty()) // ctrl + d
+	if (input.empty())
 		return ;
 	addedContact.setSecret(input);
 
@@ -86,19 +93,19 @@ void PhoneBook::displayContact()
 	{
 		std::cout << VIOLET << "Enter the index of the contact you want to see: " << RESET;
 		std::cin >> index;
-		if (std:: cin.eof()) // if someone does ctrl + d
+		if (std::cin.eof()) // if ctrl + d
 		{
 			std::cin.clear();
-			return;
+			return ;
 		} 
-		if (std::cin.fail()) // just in case someone enters alphabetical chars
+		if (std::cin.fail()) // if alphabetical chars are entered, fail because cin expects an int
 		{
 			std::cout << RED << "Invalid index. Enter a number." << RESET << std::endl;
 			std::cin.clear(); // clear error state
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // clear buffer
 			continue ;
 		}
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // clear newline (throw away as many chars as needed but stop when you hit a newline)
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // clear newline after valid input
 		if (index < 0 || index >= _totalContacts)
 		{
 			std::cout << RED << "Invalid index. Try again." << RESET << std::endl;
