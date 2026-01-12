@@ -1,6 +1,6 @@
 NAME = brain
 CC = c++
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -std=c++11
 SRCS = main.cpp
 OBJS = $(SRCS:.cpp=.o)
 

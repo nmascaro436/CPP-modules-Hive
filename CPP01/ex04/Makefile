@@ -1,6 +1,6 @@
 NAME = sed
 CC = c++
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -std=c++11
 SRCS = main.cpp Sed.cpp
 OBJS = $(SRCS:.cpp=.o)
 
