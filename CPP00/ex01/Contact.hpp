@@ -1,7 +1,5 @@
-#ifndef CONTACT_HPP
-#define CONTACT_HPP
+#pragma once
 
-#pragma once 
 #include <iostream>
 
 class Contact
@@ -28,5 +26,3 @@ class Contact
 	void setNum(std::string num);
 	void setSecret(std::string secret);
 };
-
-#endif
