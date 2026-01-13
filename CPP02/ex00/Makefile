@@ -1,7 +1,7 @@
-NAME = 
+NAME = fixedNumber
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++11
-SRCS = 
+SRCS = Fixed.cpp main.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 .SECONDARY: $(OBJS)
