@@ -80,6 +80,7 @@ std::ostream& operator<<(std::ostream& out, const Fixed& fixed)
 
 /**
  * Returns true if this Fixed number is greater than 'other', false otherwise.
+ * The last const ensures the function doesn't modify the object it's called on.
  */
 bool Fixed::operator>(const Fixed& other) const
 {
@@ -95,7 +96,7 @@ bool Fixed::operator<(const Fixed& other) const
 }
 
 /**
- * Returns true if this Fixed number is greater than or equal 'other', false otherwise.
+ * Returns true if this Fixed number is greater than or equal to 'other', false otherwise.
  */
 bool Fixed::operator>=(const Fixed& other) const
 {
@@ -103,7 +104,7 @@ bool Fixed::operator>=(const Fixed& other) const
 }
 
 /**
- * 
+ * Returns true if this Fixed number is less than or equal to 'other', false otherwise.
  */
 bool Fixed::operator<=(const Fixed& other) const
 {
@@ -111,7 +112,7 @@ bool Fixed::operator<=(const Fixed& other) const
 }
 
 /**
- * 
+ * Returns true if this Fixed number is equal to 'other', false otherwise.
  */
 bool Fixed::operator==(const Fixed& other) const
 {
@@ -119,7 +120,7 @@ bool Fixed::operator==(const Fixed& other) const
 }
 
 /**
- * 
+ * Returns true if this Fixed number is not equal to 'other', false otherwise.
  */
 bool Fixed::operator!=(const Fixed& other) const
 {
@@ -127,35 +128,47 @@ bool Fixed::operator!=(const Fixed& other) const
 }
 
 /**
- * 
+ * Adds two Fixed numbers and returns the result as a new Fixed object.
  */
 Fixed Fixed::operator+(const Fixed& other) const
 {
-
+    Fixed result;
+    result._fixedPointNumber = this->_fixedPointNumber + other._fixedPointNumber;
+    return result;
 }
 
 /**
- * 
+ * Substracts another Fixed number from this Fixed number and returns the result 
+ * as a new Fixed object.
  */
 Fixed Fixed::operator-(const Fixed& other) const
 {
-
+    Fixed result;
+    result._fixedPointNumber = this->_fixedPointNumber - other._fixedPointNumber;
+    return result;
 }
 
 /**
+ * Multiplies two Fixed numbers and returns the result as a new Fixed object.
  * 
  */
 Fixed Fixed::operator*(const Fixed& other) const
 {
-
+    Fixed result;
+    result._fixedPointNumber = (this->_fixedPointNumber * other._fixedPointNumber) >> _fractionalBits;
+    return result;
 }
 
 /**
+ * Divides this Fixed number by another Fixed number and returns the result as
+ * a new Fixed object.
  * 
  */
 Fixed Fixed::operator/(const Fixed& other) const
 {
-
+    Fixed result;
+    result._fixedPointNumber = (this->_fixedPointNumber << _fractionalBits) / other._fixedPointNumber;
+    return result;
 }
 
 /**
