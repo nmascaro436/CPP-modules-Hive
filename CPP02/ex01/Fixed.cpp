@@ -61,6 +61,8 @@ float Fixed::toFloat(void) const
 
 /**
  * Converts the fixed-point number to an integer.
+ * Doing >> means dropping the last x number of bits (which are storing the decimal part),
+ * could also express it like this _fixedPointNumber / (1 << _fractionalBits)
  */
 int Fixed::toInt(void) const
 {
