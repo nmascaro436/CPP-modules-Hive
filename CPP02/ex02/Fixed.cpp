@@ -132,8 +132,8 @@ bool Fixed::operator!=(const Fixed& other) const
  */
 Fixed Fixed::operator+(const Fixed& other) const
 {
-    Fixed result;
-    result._fixedPointNumber = this->_fixedPointNumber + other._fixedPointNumber;
+	Fixed result;
+	result._fixedPointNumber = this->_fixedPointNumber + other._fixedPointNumber;
     return result;
 }
 
@@ -150,7 +150,8 @@ Fixed Fixed::operator-(const Fixed& other) const
 
 /**
  * Multiplies two Fixed numbers and returns the result as a new Fixed object.
- * 
+ * Both numbers are scaled by 2^_fractionalBits, so the result of multiplying them
+ * has an extra scaling, so we shift right by _fractionalBits to get the correct value.
  */
 Fixed Fixed::operator*(const Fixed& other) const
 {
@@ -162,7 +163,8 @@ Fixed Fixed::operator*(const Fixed& other) const
 /**
  * Divides this Fixed number by another Fixed number and returns the result as
  * a new Fixed object.
- * 
+ * Division causes the scaling factors to cancel out, so we shift left by _fractionalBits
+ * to restore the correct scaled value.
  */
 Fixed Fixed::operator/(const Fixed& other) const
 {
@@ -172,50 +174,75 @@ Fixed Fixed::operator/(const Fixed& other) const
 }
 
 /**
- * Pre-increment
+ * Pre-increment.
+ * Modifies he object's internal value (adds 1) and returns a reference to itself.
  */
 Fixed& Fixed::operator++()
 {
-
+	_fixedPointNumber++;
+	return *this;
 }
 
 /**
- * Post-increment
+ * Post-increment.
+ * Remembers what the old value was, modifies the object's internal value (adds 1)
+ * and returns what it remembered (a copy of the old value).
+ * We never use the int value, it's just to differentiate the two versions.
  */
 Fixed Fixed::operator++(int)
 {
-
+	Fixed oldValue(*this);
+	_fixedPointNumber++;
+	return oldValue;
 }
 
 /**
- * Pre-decrement
+ * Pre-decrement.
  */
 Fixed& Fixed::operator--()
 {
-
+	_fixedPointNumber--;
+	return *this;
 }
 
 /**
- * Post-decrement
+ * Post-decrement.
  */
 Fixed Fixed::operator--(int)
 {
-
+	Fixed oldValue(*this);
+	_fixedPointNumber--;
+	return oldValue;
 }
 
+/**
+ * condition ? value_if_true : value_if_false
+ * Returns a reference to the smallest number.
+ */
 Fixed& Fixed::min(Fixed& num1, Fixed& num2)
 {
-
+	return (num1 < num2) ? num1 : num2;
 }
+
+/**
+ * Same as above but works with const(read-only) objects.
+ */
 const Fixed& Fixed::min(const Fixed& num1, const Fixed& num2)
 {
-
+	return (num1 < num2) ? num1 : num2;
 }
+/**
+ * condition ? value_if_true : value_if_false
+ * Returns a reference to the biggest number.
+ */
 Fixed& Fixed::max(Fixed& num1, Fixed& num2)
 {
-
+	return (num1 > num2) ? num1 : num2;
 }
-Fixed& Fixed::max(const Fixed& num1, const Fixed& num2)
+/**
+ * Same as above but works with const(read-only) objects.
+ */
+const Fixed& Fixed::max(const Fixed& num1, const Fixed& num2)
 {
-
+	return (num1 > num2) ? num1 : num2;
 }
