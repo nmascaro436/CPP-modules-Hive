@@ -59,7 +59,7 @@ void ClapTrap::beRepaired(unsigned int amount)
 {
     if (_hitPoints == 0)
 	{
-		std::cout << "ClapTrap " << _name << " is dead and can't repair!" << std::endl;
+		std::cout << "ClapTrap " << _name << " is dead and can't be repaired :(!" << std::endl;
 		return;
 	}
 	if (_energyPoints == 0)
