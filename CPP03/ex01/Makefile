@@ -1,7 +1,7 @@
-NAME = 
+NAME = scavTrap
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++11
-SRCS = 
+SRCS = ClapTrap.cpp main.cpp ScavTrap.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 .SECONDARY: $(OBJS)
