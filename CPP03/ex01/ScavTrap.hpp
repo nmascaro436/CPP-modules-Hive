@@ -10,7 +10,6 @@ class ScavTrap : public ClapTrap
         ScavTrap &operator=(const ScavTrap &other);
         ~ScavTrap();
 
-        virtual void attack(const std::string& target) override; //override used to explicitly indicate that the function is intended to override a base class function
+        void attack(const std::string& target) override; //override used to explicitly indicate that the function is intended to override a base class function
         void guardGate();
 };
-
