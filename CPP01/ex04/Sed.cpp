@@ -8,15 +8,19 @@ void replaceInFile(const std::string& filename, const std::string& s1, const std
 		return;
 	}
 	std::ifstream infile(filename); // open file for read only, file needs to exist already
-	std::ofstream outfile(std::string(filename) + ".replace"); // create file for writing
-	std::string line;
-
-	if (!infile || !outfile)
+	if (!infile)
 	{
-		std::cout << "Can't open input file or create output file." << std::endl;
-		return ;
+		std::cout << "Can't open input file." << std::endl;
+		return;
 	}
-
+	std::ofstream outfile(std::string(filename) + ".replace"); // create file for writing
+	if (!outfile)
+	{
+		std::cout << "Can't create output file." << std::endl;
+		return;
+	}
+	
+	std::string line;
 	while (std::getline(infile, line)) // go line by line and store in "line"
 	{
 		size_t position = 0; // beginning of line
