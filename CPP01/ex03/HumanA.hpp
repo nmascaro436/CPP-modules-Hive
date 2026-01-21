@@ -6,7 +6,7 @@ class HumanA
 {
 	private:
 		std::string _name;
-		Weapon& _weapon; //Always has a weapon, a reference can never be null and must be initialized immediately
+		Weapon& _weapon; // always has a weapon, a reference can never be null and must be initialized immediately
 
 	public:
 		HumanA(std::string name, Weapon& weapon);

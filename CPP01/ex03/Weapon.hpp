@@ -1,5 +1,5 @@
-
 #pragma once
+
 #include <iostream>
 class Weapon
 {
@@ -12,5 +12,4 @@ class Weapon
 		const std::string& getType() const;
 		void setType(std::string type);
 };
-
 
