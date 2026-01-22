@@ -1,7 +1,7 @@
 NAME = Animal
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++11
-SRCS = main.cpp Animal.cpp
+SRCS = main.cpp Animal.cpp Cat.cpp Dog.cpp WrongAnimal.cpp WrongCat.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 .SECONDARY: $(OBJS)
