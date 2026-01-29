@@ -3,7 +3,10 @@
 
 
 /**
- * We can't create an object of an abstract class
+ * An abstract class is a class that has at least one pure virtual function (when we assign
+ * to 0).
+ * We can't create an instance of an abstract base class, but we can create other
+ * classes that are derived from it.
  */
 
 class Animal
