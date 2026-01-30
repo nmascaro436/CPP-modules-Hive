@@ -36,8 +36,8 @@ int main ()
 
 	user2.takeDamage(5);
 	user2.takeDamage(5); // HP = 0
-	user2.takeDamage(5); // shouldn't change anything
+	user2.takeDamage(5);
 	return 0;
 }
-
 */
+
