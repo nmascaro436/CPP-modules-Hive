@@ -6,13 +6,11 @@ FragTrap::FragTrap(std::string name): ClapTrap(name)
     _energyPoints = 100;
     _attackDamage = 30;
     std::cout << "FragTrap's default constructor called" << std::endl;
-    return ;
 }
 
 FragTrap::FragTrap(const FragTrap &other): ClapTrap(other)
 {
     std::cout << "FragTrap's copy constructor called" << std::endl;
-    return ;
 }
 
 FragTrap &FragTrap::operator=(const FragTrap &other)

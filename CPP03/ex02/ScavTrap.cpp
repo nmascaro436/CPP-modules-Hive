@@ -6,13 +6,11 @@ ScavTrap::ScavTrap(std::string name): ClapTrap(name)
     _energyPoints = 50;
     _attackDamage = 20;
     std::cout << "ScavTrap's default constructor called" << std::endl;
-    return ;
 }
 
 ScavTrap::ScavTrap(const ScavTrap &other): ClapTrap(other)
 {
     std::cout << "ScavTrap's copy constructor called" << std::endl;
-    return ;
 }
 
 ScavTrap &ScavTrap::operator=(const ScavTrap &other)
