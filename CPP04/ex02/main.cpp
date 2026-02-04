@@ -23,7 +23,5 @@ int main()
 	for (int i = 0; i < 10; i++)
 		delete farm[i];
 
-	//Abstract test
-	//Animal test = new Dog();
 	return 0;
 }
