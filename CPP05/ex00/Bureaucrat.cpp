@@ -1,0 +1,65 @@
+#include "Bureaucrat.hpp"
+
+Bureaucrat::Bureaucrat(std::string name, unsigned int grade): name(name), grade(grade)
+{
+	if (grade < 1)
+		throw GradeTooHighException();
+	if (grade > 150)
+		throw GradeTooLowException();
+	std::cout << "Bureaucrat's default constructor called\n";
+}
+
+Bureaucrat::Bureaucrat(const Bureaucrat& other): name(other.name), grade(other.grade)
+{
+	std::cout << "Bureaucrat's copy constructor called\n";
+}
+Bureaucrat &Bureaucrat::operator=(const Bureaucrat& other)
+{
+	std::cout << "Bureaucrat's copy assignment operator called\n";
+	if (this != &other)
+	{
+		grade = other.grade; // we dont assign the name because it's const, so it's immutable
+	}
+	return (*this);
+}
+
+Bureaucrat::~Bureaucrat()
+{
+	std::cout << "Bureaucrat's destructor called\n";
+}
+const char* Bureaucrat::GradeTooHighException::what() const noexcept
+{
+	return "Grade is too high!";
+}
+
+const char* Bureaucrat::GradeTooLowException::what() const noexcept
+{
+	return "Grade is too low!";
+}
+std::string Bureaucrat::getName() const
+{
+	return (name);
+}
+
+unsigned int Bureaucrat::getGrade() const
+{
+	return (grade);
+}
+
+void Bureaucrat::incrementGrade()
+{
+	if (grade - 1 < 1)
+		throw GradeTooHighException();
+	grade--;
+}
+void Bureaucrat::decrementGrade()
+{
+	if (grade + 1 > 150)
+		throw GradeTooLowException();
+	grade++;
+}
+std::ostream& operator<<(std::ostream& out, const Bureaucrat& cog)
+{
+    out << cog.getName() <<", bureaucrat grade " << cog.getGrade();
+    return out;
+}
