@@ -1,7 +1,7 @@
-NAME = 
+NAME = maggots
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++20
-SRCS = 
+SRCS = main.cpp Form.cpp Bureaucrat.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 .SECONDARY: $(OBJS)

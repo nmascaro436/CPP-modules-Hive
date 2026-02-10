@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-
+#include "Bureaucrat.hpp"
 class Form
 {
 	private:
@@ -11,7 +11,7 @@ class Form
 
 	public:
 	Form();
-	Form(std::string name, bool isSigned, int gradeS, int gradeE);
+	Form(const std::string name, const int gradeS, const int gradeE);
 	Form(const Form& other);
 	Form &operator=(const Form& other);
 	~Form();
@@ -25,5 +25,12 @@ class Form
 		public:
 		const char* what() const noexcept override;
 	};
-	const std::string
+	const std::string& getName() const;
+	bool getSigned() const;
+	int getGradeS() const;
+	int getGradeE() const;
+	void beSigned(const Bureaucrat& user);
+	
 };
+std::ostream& operator<<(std::ostream& out, const Form& form);
+

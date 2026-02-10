@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-
+#include "Form.hpp"
 class Bureaucrat
 {
 	private:
@@ -27,5 +27,6 @@ class Bureaucrat
 	int getGrade() const;
 	void incrementGrade();
 	void decrementGrade();
+	void signForm(Form &form);
 };
 std::ostream& operator<<(std::ostream& out, const Bureaucrat& cog);
