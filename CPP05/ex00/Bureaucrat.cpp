@@ -1,21 +1,19 @@
 #include "Bureaucrat.hpp"
 
+Bureaucrat::Bureaucrat(): name("default"), grade(150) {} // picking some default values because the Bureaucrat always has to have a name and grade
+
 Bureaucrat::Bureaucrat(std::string name, int grade): name(name), grade(grade)
 {
 	if (grade < 1)
 		throw GradeTooHighException();
 	else if (grade > 150)
 		throw GradeTooLowException();
-	std::cout << "Bureaucrat's default constructor called\n";
 }
 
-Bureaucrat::Bureaucrat(const Bureaucrat& other): name(other.name), grade(other.grade)
-{
-	std::cout << "Bureaucrat's copy constructor called\n";
-}
+Bureaucrat::Bureaucrat(const Bureaucrat& other): name(other.name), grade(other.grade) {}
+
 Bureaucrat &Bureaucrat::operator=(const Bureaucrat& other)
 {
-	std::cout << "Bureaucrat's copy assignment operator called\n";
 	if (this != &other)
 	{
 		grade = other.grade; // we dont assign the name because it's const, so it's immutable
@@ -23,10 +21,8 @@ Bureaucrat &Bureaucrat::operator=(const Bureaucrat& other)
 	return (*this);
 }
 
-Bureaucrat::~Bureaucrat()
-{
-	std::cout << "Bureaucrat's destructor called\n";
-}
+Bureaucrat::~Bureaucrat(){}
+
 const char* Bureaucrat::GradeTooHighException::what() const noexcept
 {
 	return "Grade is too high!";
