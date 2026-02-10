@@ -1,10 +1,10 @@
 #include "Bureaucrat.hpp"
 
-Bureaucrat::Bureaucrat(std::string name, unsigned int grade): name(name), grade(grade)
+Bureaucrat::Bureaucrat(std::string name, int grade): name(name), grade(grade)
 {
 	if (grade < 1)
 		throw GradeTooHighException();
-	if (grade > 150)
+	else if (grade > 150)
 		throw GradeTooLowException();
 	std::cout << "Bureaucrat's default constructor called\n";
 }
@@ -36,12 +36,13 @@ const char* Bureaucrat::GradeTooLowException::what() const noexcept
 {
 	return "Grade is too low!";
 }
+
 std::string Bureaucrat::getName() const
 {
 	return (name);
 }
 
-unsigned int Bureaucrat::getGrade() const
+int Bureaucrat::getGrade() const
 {
 	return (grade);
 }

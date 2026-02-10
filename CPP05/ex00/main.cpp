@@ -1,13 +1,5 @@
 #include "Bureaucrat.hpp"
 
-/**
- * Valid bureaucrat creation
-Invalid bureaucrat creation (grade too high)
-Invalid bureaucrat creation (grade too low)
-Incrementing when it would go out of range
-Decrementing when it would go out of range
-Using the << operator to print bureaucrats
- */
 int main()
 {
 	try

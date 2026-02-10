@@ -8,7 +8,7 @@ class Bureaucrat
 	int grade;
 
 	public:
-	Bureaucrat(std::string name, unsigned int grade);
+	Bureaucrat(std::string name, int grade);
 	Bureaucrat(const Bureaucrat& other);
 	Bureaucrat &operator=(const Bureaucrat& other);
 	~Bureaucrat();
@@ -23,7 +23,7 @@ class Bureaucrat
 		const char* what() const noexcept override;
 	};
 	std::string getName() const;
-	unsigned int getGrade() const;
+	int getGrade() const;
 	void incrementGrade();
 	void decrementGrade();
 };
