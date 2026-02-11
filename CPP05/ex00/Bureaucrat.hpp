@@ -4,8 +4,8 @@
 class Bureaucrat
 {
 	private:
-	const std::string name;
-	int grade;
+	const std::string _name;
+	int _grade;
 
 	public:
 	Bureaucrat();
@@ -23,7 +23,7 @@ class Bureaucrat
 		public:
 		const char* what() const noexcept override;
 	};
-	std::string getName() const;
+	const std::string& getName() const;
 	int getGrade() const;
 	void incrementGrade();
 	void decrementGrade();
