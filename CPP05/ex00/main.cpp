@@ -21,7 +21,7 @@ int main()
 	}
 	try
 	{
-		Bureaucrat("Antti", 170);
+		Bureaucrat user3("Antti", 170);
 	}
 	catch(const std::exception& e)
 	{
@@ -29,8 +29,8 @@ int main()
 	}
 	try
 	{
-		Bureaucrat user3("Daniel", 1);
-		user3.incrementGrade();
+		Bureaucrat user4("Daniel", 1);
+		user4.incrementGrade();
 	}
 	catch(const std::exception& e)
 	{
@@ -38,8 +38,8 @@ int main()
 	}
 	try
 	{
-		Bureaucrat user4("Anton", 150);
-		user4.decrementGrade();
+		Bureaucrat user5("Anton", 150);
+		user5.decrementGrade();
 	}
 	catch(const std::exception& e)
 	{

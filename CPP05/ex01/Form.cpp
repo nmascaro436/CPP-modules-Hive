@@ -1,4 +1,5 @@
 #include "Form.hpp"
+#include "Bureaucrat.hpp"
 
 Form::Form(): _name(""), _isSigned(false), _gradeToSign(150), _gradeToExecute(150){}
 
@@ -37,14 +38,17 @@ const std::string& Form::getName() const
 {
 	return _name;
 }
+
 bool Form::getSigned() const
 {
 	return _isSigned;
 }
+
 int Form::getGradeS() const
 {
 	return _gradeToSign;
 }
+
 int Form::getGradeE() const
 {
 	return _gradeToExecute;
@@ -59,7 +63,7 @@ void Form::beSigned(const Bureaucrat& user)
 }
 std::ostream& operator<<(std::ostream& out, const Form& form)
 {
-    out << form.getName() << ", status signed: " << form.getSigned() << " with grade required to sign "
-	<< form.getGradeS() << " and grade required to execute " << form.getGradeE();
+    out << "Form named " << form.getName() << " , with signed status " << form.getSigned() << " has grade " << form.getGradeS()
+	<< " required to sign it and grade " << form.getGradeE() << " required to execute it.";
     return out;
 }

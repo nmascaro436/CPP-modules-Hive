@@ -1,11 +1,12 @@
 #pragma once
 #include <iostream>
-#include "Bureaucrat.hpp"
+
+class Bureaucrat;
 class Form
 {
 	private:
 	const std::string _name;
-	bool _isSigned;
+	bool _isSigned; // we shouldn't pass it as a parameter because it's not a value required to define the object, we set it to true or false after construction
 	const int _gradeToSign;
 	const int _gradeToExecute;
 
