@@ -72,3 +72,8 @@ std::ostream& operator<<(std::ostream& out, const AForm& form)
 	<< " required to sign it and grade " << form.getGradeE() << " required to execute it.";
     return out;
 }
+
+void AForm::execute(Bureaucrat const & executor) const
+{
+ TODO:complete this function
+}
