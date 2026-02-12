@@ -1,7 +1,7 @@
-NAME = 
+NAME = forms
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++20
-SRCS = 
+SRCS = main.cpp Bureaucrat.cpp AForm.cpp PresidentialPardonForm.cpp RobotomyRequestForm.cpp ShrubberyCreationForm.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 .SECONDARY: $(OBJS)

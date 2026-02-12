@@ -57,7 +57,7 @@ void Bureaucrat::decrementGrade()
 	_grade++;
 }
 
-void Bureaucrat::signForm(Form& form)
+void Bureaucrat::signForm(AForm& form)
 {
 	try
 	{
@@ -73,4 +73,17 @@ std::ostream& operator<<(std::ostream& out, const Bureaucrat& cog)
 {
     out << cog.getName() <<", bureaucrat grade " << cog.getGrade();
     return out;
+}
+
+void Bureaucrat::executeForm(AForm const & form) const
+{
+	try
+	{
+		form.execute(*this); // in the base class this is virtual so it makes the program look at the object type at runtime (not the reference)
+		std::cout << this->getName() << " executed " << form.getName() << '\n';
+	}
+	catch(const std::exception& e)
+	{
+		std::cout << this->getName() << " couldn't execute " << form.getName() << " because " << e.what() << '\n';
+	}
 }

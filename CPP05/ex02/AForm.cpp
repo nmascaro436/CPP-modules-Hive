@@ -73,7 +73,3 @@ std::ostream& operator<<(std::ostream& out, const AForm& form)
     return out;
 }
 
-void AForm::execute(Bureaucrat const & executor) const
-{
- TODO:complete this function
-}

@@ -25,7 +25,7 @@ void ShrubberyCreationForm::execute(Bureaucrat const & executor) const
 	if (executor.getGrade() > this->getGradeE())
 		throw GradeTooLowException();
 	std::ofstream file(std::string(_target) + "_shrubbery");
-	if (file.is_open())
+	if (!file.is_open())
 		throw std::runtime_error("Failed to open file");
 	file << "🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲";
 	file.close();
