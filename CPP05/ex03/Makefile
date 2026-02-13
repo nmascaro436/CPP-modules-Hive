@@ -1,7 +1,7 @@
-NAME = 
+NAME = intern
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++20
-SRCS = 
+SRCS = main.cpp PresidentialPardonForm.cpp RobotomyRequestForm.cpp ShrubberyCreationForm.cpp Intern.cpp AForm.cpp Bureaucrat.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 .SECONDARY: $(OBJS)

@@ -1,18 +1,18 @@
-#include "Bureaucrat.hpp"
-#include "ShrubberyCreationForm.hpp"
-#include "PresidentialPardonForm.hpp"
-#include "RobotomyRequestForm.hpp"
+#include "Intern.hpp"
 
 int main()
 {
-	srand(time(NULL)); // allows rand() to produce different results every time I run the program
-	std::cout << "--------------------- SHRUBBERY CREATION FORM TESTS ---------------- \n";
+	srand(time(NULL));
+	std::cout << "------------- TESTS OF CREATION OF VALID FORM NAMES -------------\n ";
 	try
 	{
-		ShrubberyCreationForm shrubbery("beach"); // should sign and execute successfully
-		Bureaucrat user1("Nuria", 130);
-		user1.signForm(shrubbery);
-		user1.executeForm(shrubbery);
+		Intern someRandomIntern;
+		AForm* rrf;
+		Bureaucrat bureaucrat("Nuria", 1);
+		rrf = someRandomIntern.makeForm("robotomy request", "Bender");
+		bureaucrat.signForm(*rrf);
+		bureaucrat.executeForm(*rrf);
+		delete rrf;
 	}
 	catch(const std::exception& e)
 	{
@@ -20,9 +20,13 @@ int main()
 	}
 	try
 	{
-		ShrubberyCreationForm shrubbery("house"); // should throw form not signed exception
-		Bureaucrat user2("Marta", 130);
-		user2.executeForm(shrubbery);
+		Intern someOtherRandomIntern;
+		AForm* scf;
+		Bureaucrat bureaucrat2("Nuria", 1);
+		scf = someOtherRandomIntern.makeForm("shrubbery creation", "Something");
+		bureaucrat2.signForm(*scf);
+		bureaucrat2.executeForm(*scf);
+		delete scf;
 	}
 	catch(const std::exception& e)
 	{
@@ -30,33 +34,27 @@ int main()
 	}
 	try
 	{
-		ShrubberyCreationForm shrubbery("desert"); // should throw grade too low exception
-		Bureaucrat user3("Enric", 130);
-		Bureaucrat user4("Joan", 150);
-		user3.signForm(shrubbery);
-		user4.executeForm(shrubbery);
+		Intern evenSomeOtherRandomIntern;
+		AForm* ppf;
+		Bureaucrat bureaucrat3("Nuria", 1);
+		ppf = evenSomeOtherRandomIntern.makeForm("presidential pardon", "Someone");
+		bureaucrat3.signForm(*ppf);
+		bureaucrat3.executeForm(*ppf);
+		delete ppf;
 	}
 	catch(const std::exception& e)
 	{
 		std::cout << "This is wrong! " << e.what() << '\n';
 	}
-	std::cout << "--------------------- ROBOTOMY REQUEST FORM TESTS ---------------- \n";
+	
+	std::cout << "------------- TESTS OF CREATION OF INVALID FORM NAMES -------------\n ";
 	try
 	{
-		RobotomyRequestForm robotomy("Bella"); // should sign and execute successfully (execution success is random though)
-		Bureaucrat user5("Lina", 40);
-		user5.signForm(robotomy);
-		user5.executeForm(robotomy);
-	}
-	catch(const std::exception& e)
-	{
-		std::cout << "This is wrong! " << e.what() << '\n';
-	}
-	try
-	{
-		RobotomyRequestForm robotomy("Ariel"); // should throw form not signed exception
-		Bureaucrat user6("Anna", 40);
-		user6.executeForm(robotomy);
+		Intern someRandomIntern;
+		AForm* wrongForm;
+		wrongForm = someRandomIntern.makeForm("something wrong", "Bender");
+		if (wrongForm)
+			delete wrongForm;
 	}
 	catch(const std::exception& e)
 	{
@@ -64,45 +62,11 @@ int main()
 	}
 	try
 	{
-		RobotomyRequestForm robotomy("Aurora"); // should throw grade too low exception
-		Bureaucrat user7("Mar", 40);
-		Bureaucrat user8("Oscar", 46);
-		user7.signForm(robotomy);
-		user8.executeForm(robotomy);
-	}
-	catch(const std::exception& e)
-	{
-		std::cout << "This is wrong! " << e.what() << '\n';
-	}
-	std::cout << "--------------------- PRESIDENTIAL PARDON FORM TESTS ---------------- \n";
-	try
-	{
-		PresidentialPardonForm presidential("Flower"); // should sign and execute successfully
-		Bureaucrat user9("Angie", 2);
-		user9.signForm(presidential);
-		user9.executeForm(presidential);
-	}
-	catch(const std::exception& e)
-	{
-		std::cout << "This is wrong! " << e.what() << '\n';
-	}
-	try
-	{
-		PresidentialPardonForm presidential("Thor"); // should throw form not signed exception
-		Bureaucrat user10("Bernat", 20);
-		user10.executeForm(presidential);
-	}
-	catch(const std::exception& e)
-	{
-		std::cout << "This is wrong! " << e.what() << '\n';
-	}
-	try
-	{
-		PresidentialPardonForm presidential("Alberta"); // should throw grade too low exception
-		Bureaucrat user10("David", 20);
-		Bureaucrat user11("Carme", 6);
-		user10.signForm(presidential);
-		user11.executeForm(presidential);
+		Intern someRandomIntern;
+		AForm* anotherWrongForm;
+		anotherWrongForm = someRandomIntern.makeForm("Shrubbery creation", "Something");
+		if (anotherWrongForm)
+			delete anotherWrongForm;
 	}
 	catch(const std::exception& e)
 	{
