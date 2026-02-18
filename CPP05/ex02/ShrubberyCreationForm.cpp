@@ -27,6 +27,15 @@ void ShrubberyCreationForm::execute(Bureaucrat const & executor) const
 	std::ofstream file(std::string(_target) + "_shrubbery");
 	if (!file.is_open())
 		throw std::runtime_error("Failed to open file");
-	file << "🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲";
+	file << "               ,@@@@@@@,\n";
+	file << "       ,,,.   ,@@@@@@/@@,  .oo8888o.\n";
+	file << "    ,&%%&%&&%,@@@@@/@@@@@@,8888\\88/8o\n";
+	file << "   ,%&\\%&&%&&%,@@@\\@@@/@@@88\\88888/88'\n";
+	file << "   %&&%&%&/%&&%@@\\@@/ /@@@88888\\88888'\n";
+	file << "   %&&%/ %&%%&&@@\\ V /@@' `88\\8 `/88'\n";
+	file << "   `&%\\ ` /%&'    |.|        \\ '|8'\n";
+	file << "       |o|        | |         | |\n";
+	file << "       |.|        | |         | |\n";
+	file << "  \\\\/ ._\\//_/__/  ,\\_//__\\\\/.  \\_//__/_\n";
 	file.close();
 }
