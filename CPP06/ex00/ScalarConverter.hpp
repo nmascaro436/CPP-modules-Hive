@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
-
+#include <iomanip>
+#include <climits>
+#include <cfloat>
 /**
  * TYPES OF CASTS
  * -Static cast: most used type, used to convert a value from one type to another, as long as
@@ -22,7 +24,7 @@ class ScalarConverter
 	ScalarConverter(const ScalarConverter& other);
 	ScalarConverter &operator=(const ScalarConverter& other);
 	~ScalarConverter();
-	
+
 	public:
-	static void convert(std::string literal);
+	static void convert(const std::string& literal);
 };
