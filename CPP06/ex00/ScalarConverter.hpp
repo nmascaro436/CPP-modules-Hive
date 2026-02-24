@@ -1,8 +1,8 @@
 #pragma once
 #include <iostream>
-#include <iomanip>
-#include <climits>
-#include <cfloat>
+#include <iomanip> // for std::fixed and setprecision
+#include <climits> // for INT_MAX and INT_MIN
+#include <cfloat> // for FLT_MAX
 /**
  * TYPES OF CASTS
  * -Static cast: most used type, used to convert a value from one type to another, as long as
