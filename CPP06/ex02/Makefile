@@ -1,7 +1,7 @@
-NAME = 
+NAME = identify
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++20
-SRCS = 
+SRCS = utils.cpp main.cpp Base.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 .SECONDARY: $(OBJS)

@@ -14,10 +14,10 @@ Base * generate(void)
 			return new C();
 	}
 }
-
+//dynamic_cast on a pointer returns nullptr, no exception
 void identify(Base* p)
 {
-	if (dynamic_cast<A*>(p))
+	if (dynamic_cast<A*>(p)) // if p points to A
 		std::cout << "A\n";
 	else if (dynamic_cast<B*>(p))
 		std::cout << "B\n";
@@ -25,12 +25,13 @@ void identify(Base* p)
 		std::cout << "C\n";
 }
 
-void identify(Base& p)
+//dynamic_cast on a reference throws bad_cast exception, so we use the try/catch
+void identify(Base& p) 
 {
     try {
-        (void)dynamic_cast<A&>(p);
+        (void)dynamic_cast<A&>(p); // try to cast p to &A, and see if it succeeds
         std::cout << "A\n";
-    } catch(...) {
+    } catch(...) { // did the cast fail for any reason?
         try {
             (void)dynamic_cast<B&>(p);
             std::cout << "B\n";
