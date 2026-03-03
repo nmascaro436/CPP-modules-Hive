@@ -61,7 +61,7 @@ static void floats(const std::string& literal)
 			std::cout << "char: Non displayable\n";
 		else
 			std::cout << "char: " << "'" << static_cast<char>(fl) << "'" << '\n';
-		if (static_cast<double>(fl) > INT_MAX || static_cast<double>(fl) < INT_MIN) //float can't store the INT_MAX, cast to double toget precision
+		if (static_cast<double>(fl) > INT_MAX || static_cast<double>(fl) < INT_MIN) //float can't store the INT_MAX, cast to double to get precision
 			std::cout << "int: impossible\n";
 		else
 			std::cout << "int: " << static_cast<int>(fl) << '\n';
@@ -93,7 +93,7 @@ static void doubles(const std::string& literal)
 	try
 	{
 		double db = std::stod(literal);
-		if (!std::isprint(static_cast<unsigned char>(db)) || db > 127 || db < 0)
+		if (!std::isprint(static_cast<unsigned char>(db)) || db > 127)
 			std::cout << "char: Non displayable\n";
 		else
 			std::cout << "char: " << "'" << static_cast<char>(db) << "'" << '\n';
@@ -121,7 +121,7 @@ static void integers(const std::string& literal)
 	try
 	{
 		long num = std::stol(literal);
-		if (!std::isprint(static_cast<unsigned char>(num)) || num > 127 || num < 0)
+		if (!std::isprint(static_cast<unsigned char>(num)) || num > 127)
 			std::cout << "char: Non displayable\n";
 		else
 			std::cout << "char: " << "'" << static_cast<char>(num) << "'" << '\n';
