@@ -57,7 +57,7 @@ static void floats(const std::string& literal)
 	try
 	{
 		float fl = std::stof(literal);
-		if (!std::isprint(static_cast<unsigned char>(fl)) || fl > 127 || fl < 0) //isprint expects a positive number so we guarantee it's never negative
+		if (!std::isprint(static_cast<unsigned char>(fl)) || fl > 127) //isprint expects a positive number so we guarantee it's never negative
 			std::cout << "char: Non displayable\n";
 		else
 			std::cout << "char: " << "'" << static_cast<char>(fl) << "'" << '\n';
