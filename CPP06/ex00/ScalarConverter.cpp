@@ -43,10 +43,15 @@ static void characters(const std::string& literal)
 static void floats(const std::string& literal)
 {
 	int fCount = 0;
+	int dotCount = 0;
 	for (size_t i = 0; i < literal.length(); i++)
+	{
 		if (literal[i] == 'f')
 			fCount++;
-	if (fCount > 1) //if it has more than 1 f it's invalid number
+		if (literal[i] == '.')
+			dotCount++;
+	}
+	if (fCount > 1 || dotCount > 1) //if it has more than 1 f or . it's invalid number
 	{
 		std::cout << "char: impossible\n";
 		std::cout << "int: impossible\n";
