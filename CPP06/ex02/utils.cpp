@@ -25,7 +25,7 @@ void identify(Base* p)
 		std::cout << "C\n";
 }
 
-//dynamic_cast on a reference throws bad_cast exception, so we use the try/catch
+//dynamic_cast on a reference throws bad_cast exception (references can't be null), so we use the try/catch
 void identify(Base& p) 
 {
     try {
