@@ -42,10 +42,12 @@ template <typename T> T& Array<T>::operator[](unsigned int index)
 
 template <typename T> const T& Array<T>::operator[](unsigned int index) const
 {
-
+	if (index >= size())
+		throw std::out_of_range("Index is out of bounds");
+	return _array[index];
 }
 
 template <typename T> unsigned int Array<T>::size() const
 {
-
+	return _size;
 }
