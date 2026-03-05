@@ -15,9 +15,7 @@ template <typename T> void convertToUpper(T& str)
 	for (size_t i = 0; i < str.size(); i++)
 	{
 		str[i] = toupper(str[i]);
-		std::cout << str[i];
 	}
-	std::cout << '\n';
 }
 int main()
 {
@@ -37,7 +35,7 @@ int main()
 
 	std::cout << "Words after modifying\n";
 	iter(words, 4, convertToUpper<std::string>);
-
+	iter(words, 4, print<std::string>);
 
 	float floatArray[] = {1.1f, 2.2f, 3.3f, 4.4f};
 
