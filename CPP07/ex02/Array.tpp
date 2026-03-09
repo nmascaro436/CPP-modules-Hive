@@ -2,12 +2,12 @@
 
 template <typename T> Array<T>::Array() : _array(NULL), _size(0) {}
 
-template <typename T> Array<T>::Array(unsigned int n): _array(new T[n]), _size(n) {}
+template <typename T> Array<T>::Array(unsigned int n): _array(new T[n]()), _size(n) {}
 
 template <typename T> Array<T>::Array(const Array& other)
 {
 	T *copyArray = new T[other._size]; //create memory for the copy so it's independent
-	for (int i = 0; i < other._size; i++)
+	for (unsigned int i = 0; i < other._size; i++)
 		copyArray[i] = other._array[i];
 	
 	_array = copyArray;
@@ -19,7 +19,7 @@ template <typename T> Array<T>& Array<T>::operator=(const Array& other)
 	{
 		delete[] _array;
 		T *copyArray = new T[other._size];
-		for (int i = 0; i < other._size; i++)
+		for (unsigned int i = 0; i < other._size; i++)
 			copyArray[i] = other._array[i];
 	
 		_array = copyArray;
