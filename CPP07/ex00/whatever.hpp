@@ -1,7 +1,10 @@
 #pragma once
 #include <iostream>
 
-//templates allow us to write functions that work with many types
+/**
+ * Templates allow us to write functions that work for any data type without rewriting it
+ * for each type.
+*/
 
 template <typename T> void swap(T& a, T& b)
 {
