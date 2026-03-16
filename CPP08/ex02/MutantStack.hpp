@@ -6,6 +6,7 @@
  * std::stack is a container adaptor, works like a stack of plates, we can only see what is
  * at the top, that's why it isn't iterable. It's built on top of std::deque (can also use
  * list or vector), and that is stored as a member object (container C).
+ * MutantStack is a template class that inherits from another template class (stack).
  */
 
 template <typename T>
