@@ -147,5 +147,5 @@ void BitcoinExchange::lookUpDate(const std::string& date, double value)
 		return;
 	}
 	iterator--; //gives closest date less than or equal to what we're looking for
-	std::cout << iterator->first << " => "  <<  value << " = " << value * iterator->second << "\n";
+	std::cout << date << " => "  <<  value << " = " << value * iterator->second << "\n";
 }
