@@ -11,6 +11,10 @@ class BitcoinExchange
 {
 	private:
 	std::map<std::string, double> dateAndRate;
+	std::string trimInput(const std::string& str);
+	bool validateValue(const std::string& value);
+	bool validateDate(const std::string& date);
+	void lookUpDate(const std::string& date, double value);
 
 	public:
 	BitcoinExchange();
