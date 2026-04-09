@@ -25,10 +25,19 @@ void BitcoinExchange::putDataInMap(const std::string& dataFile)
 	std::getline(file,line); //skips line of the header
 	while (std::getline(file, line))
 	{
+		if (line.empty())
+			continue;
 		size_t comma = line.find(',');
 		std::string beforeComma = line.substr(0, comma);
 		std::string afterComma = line.substr(comma + 1);
-		dateAndRate[beforeComma] = std::stod(afterComma); 
+		try
+		{
+			dateAndRate[beforeComma] = std::stod(afterComma); 
+		}
+		catch(...)
+		{
+			std::cout << "Error: bad data => " << line << '\n';
+		}
 	}
 	file.close();
 }
@@ -44,6 +53,8 @@ void  BitcoinExchange::processInputFile(const std::string& inputFile)
 	std::getline(file,line); //skips line of the header
 	while (std::getline(file, line))
 	{
+		if (line.empty())
+			continue;
 		size_t pipe = line.find('|');
 		if (pipe == std::string::npos)
 		{
@@ -66,6 +77,8 @@ void  BitcoinExchange::processInputFile(const std::string& inputFile)
 std::string BitcoinExchange::trimInput(const std::string& str)
 {
 	size_t start = str.find_first_not_of(" "); // finds first char that's not a space
+	if (start == std::string::npos) // if the string  is only spaces
+		return "";
 	size_t end = str.find_last_not_of(" "); // finds last char that's not a space
 	std::string trimmed = str.substr(start, end - start + 1); // get the actual string
 	return trimmed;
@@ -76,7 +89,13 @@ bool BitcoinExchange::validateValue(const std::string& value)
 	double number = 0;
 	try
 	{
-		number = std::stod(value); //convert value to double 
+		size_t position; //stores number of chars successfully parsed
+		number = std::stod(value,  &position); //convert value to double (stops when it fins char not part of number)
+		if (position != value.length()) //checks if the entire string was parsed
+		{
+			std::cout << "Error: bad input => " << value <<  '\n'; // leftover char detected
+			return false;
+		}
 	}
 	catch(const std::exception& e)
 	{
@@ -143,7 +162,7 @@ void BitcoinExchange::lookUpDate(const std::string& date, double value)
 	auto iterator = dateAndRate.upper_bound(date); //finds the first date in the map strictly greater than  input
 	if (iterator == dateAndRate.begin()) //date is before every date
 	{
-		std::cout << "Error: date is already first\n";
+		std::cout << "Error: no earlier data available\n";
 		return;
 	}
 	iterator--; //gives closest date less than or equal to what we're looking for
