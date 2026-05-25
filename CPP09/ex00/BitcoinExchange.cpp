@@ -90,7 +90,7 @@ bool BitcoinExchange::validateValue(const std::string& value)
 	try
 	{
 		size_t position; //stores number of chars successfully parsed
-		number = std::stod(value,  &position); //convert value to double (stops when it fins char not part of number)
+		number = std::stod(value,  &position); //convert value to double (stops when it finds char not part of number)
 		if (position != value.length()) //checks if the entire string was parsed
 		{
 			std::cout << "Error: bad input => " << value <<  '\n'; // leftover char detected
@@ -134,6 +134,11 @@ bool BitcoinExchange::validateDate(const std::string& date)
 		int y = std::stoi(year);
 		int m = std::stoi(month);
 		int d = std::stoi(day);
+		if (y < 0)
+		{
+			std::cout << "Error: bad input => " << date <<  '\n';
+			return false;
+		}
 		if (m < 1 || m > 12)
 		{
 			std::cout << "Error: bad input => " << date <<  '\n';
@@ -144,7 +149,11 @@ bool BitcoinExchange::validateDate(const std::string& date)
 			std::cout << "Error: bad input => " << date <<  '\n';
 			return false;
 		}
-		if (y < 0)
+		int daysInMonth[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+		bool leap = (y % 4 == 0 && y % 100 != 0) || (y % 400 == 0);
+		if (leap)
+			daysInMonth[1] = 29;
+		if (d > daysInMonth[m - 1])
 		{
 			std::cout << "Error: bad input => " << date <<  '\n';
 			return false;
