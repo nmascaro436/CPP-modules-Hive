@@ -27,7 +27,7 @@ void BitcoinExchange::putDataInMap(const std::string& dataFile)
 	{
 		if (line.empty())
 			continue;
-		size_t comma = line.find(',');
+		size_t comma = line.find(',');  
 		std::string beforeComma = line.substr(0, comma);
 		std::string afterComma = line.substr(comma + 1);
 		try
@@ -56,7 +56,7 @@ void  BitcoinExchange::processInputFile(const std::string& inputFile)
 		if (line.empty())
 			continue;
 		size_t pipe = line.find('|');
-		if (pipe == std::string::npos)
+		if (pipe == std::string::npos) // no pipe found
 		{
 			std::cout << "Error: bad input => " << line <<  '\n';
 			continue;
@@ -150,10 +150,10 @@ bool BitcoinExchange::validateDate(const std::string& date)
 			return false;
 		}
 		int daysInMonth[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-		bool leap = (y % 4 == 0 && y % 100 != 0) || (y % 400 == 0);
+		bool leap = (y % 4 == 0 && y % 100 != 0) || (y % 400 == 0); // checks if leap year
 		if (leap)
 			daysInMonth[1] = 29;
-		if (d > daysInMonth[m - 1])
+		if (d > daysInMonth[m - 1]) // check if the day exceeds the maximum for that specific month
 		{
 			std::cout << "Error: bad input => " << date <<  '\n';
 			return false;
