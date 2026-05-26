@@ -28,4 +28,7 @@ int main(int argc, char **argv)
 2013-05-12|1000.00          -> Valid decimal, should pass
 2013-05-12 | +12            -> Valid, should pass (plus sign allowed)
 2013-05-12 | 12.0.0         -> Error: bad input (malformed decimal)
+2012-02-29 | 1 				-> Valid, 2012 is a leap year
+1900-02-29 | 1 				-> Error: bad input (not a leap year)
+2023-04-31 | 1				-> Error: bad input (April has only 30 days)
  */
