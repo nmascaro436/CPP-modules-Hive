@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <sstream>
 #include <stack>
 
 /**
@@ -9,20 +10,15 @@
  * numbers on top ad when we need 2 we just pop them off.
  */
 
-
-
-// Push (add), top (read value), pop (remove)
 class RPN
 {
 	private:
 	std::stack<int> operation;
-
-
-
-
+	
 	public:
 	RPN();
 	RPN(const RPN& other);
 	RPN& operator=(const RPN& other);
 	~RPN();
+	void processOperation(const std::string& str);
 } ;
