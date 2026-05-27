@@ -21,7 +21,7 @@ void RPN::processOperation(const std::string& str)
 	{
 		if (token.length() == 1 && isdigit(token[0])) // if token is number
 			operation.push(std::stoi(token)); // convert to int and add to stack
-		else if (token[0] == '+' || token[0] == '-' || token[0] == '*' || token[0] == '/') 
+		else if (token.length() == 1 && (token[0] == '+' || token[0] == '-' || token[0] == '*' || token[0] == '/')) 
 		{
 			if (operation.size() < 2) // need at least 2 numbers in the stack
 			{

@@ -1,7 +1,7 @@
 NAME = RPN
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++20
-SRCS = 
+SRCS = main.cpp RPN.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 .SECONDARY: $(OBJS)
