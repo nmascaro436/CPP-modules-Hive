@@ -18,7 +18,21 @@ PmergeMe::~PmergeMe() {}
 
 void PmergeMe::parseInput(int argc, char **argv)
 {
-
+	for (int i = 1; i < argc; i++)
+	{
+		std::string numStr(argv[i]); 
+		for (size_t idx = 0; idx < numStr.length(); idx++) // check each char of number
+		{
+			if (!isdigit(numStr[idx]))
+			{
+				std::cerr << "Error\n";
+				return;
+			}
+		}
+		int num = std::stoi(numStr);
+		_vec.push_back(num);
+		_deq.push_back(num);
+	}
 }
 
 void PmergeMe::vectorSort()
