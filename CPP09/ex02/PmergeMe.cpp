@@ -37,14 +37,47 @@ void PmergeMe::parseInput(int argc, char **argv)
 
 void PmergeMe::vectorSort()
 {
-
+	std::cout << "Before: " ;
+	for (int i = 0; i < _vec.size(); i++)
+	{
+		std::cout << _vec[i] << " ";
+	}
+	std::cout << '\n';
+	
+	clock_t start = clock();
+	FordJohnson(_vec);
+	clock_t end = clock();
+	double time = (double)(end - start) / CLOCKS_PER_SEC * 1000000; // convert clock ticks to microseconds
+	std::cout << "After: ";
+	for (int i = 0; i < _vec.size(); i++)
+	{
+		std::cout << _vec[i] << " ";
+	}
+	std::cout << '\n';
+	std::cout << "Time to process a range of " << _vec.size() << " elements with std::vector : " << time << " us\n";
 }
 
 void PmergeMe::dequeSort()
 {
-
+	std::cout << "Before: " ;
+	for (int i = 0; i < _deq.size(); i++)
+	{
+		std::cout << _deq[i] << " ";
+	}
+	std::cout << '\n';
+	
+	clock_t start = clock();
+	FordJohnson(_deq);
+	clock_t end = clock();
+	double time = (double)(end - start) / CLOCKS_PER_SEC * 1000000; // convert clock ticks to microseconds
+	std::cout << "After: ";
+	for (int i = 0; i < _deq.size(); i++)
+	{
+		std::cout << _deq[i] << " ";
+	}
+	std::cout << '\n';
+	std::cout << "Time to process a range of " << _deq.size() << " elements with std::deque : " << time << " us\n";
 }
-
 
 void PmergeMe::FordJohnson(std::vector<int>& vec)
 {
