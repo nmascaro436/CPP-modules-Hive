@@ -81,7 +81,42 @@ void PmergeMe::dequeSort()
 
 void PmergeMe::FordJohnson(std::vector<int>& vec)
 {
+	if (vec.size() <= 1) // already sorted
+		return ;
+	std::vector<std::pair<int, int>> pairs; // std::pair holds two values together
+	bool hasOddNum = vec.size() % 2 != 0;
+	for (size_t i = 0; i + 1 < vec.size(); i += 2) // we make sure we don't go out of bounds and we advance two positions at a time
+	{
+		int winner = std::max(vec[i], vec[i + 1]);
+		int loser = std::min(vec[i], vec[i + 1]);
+		pairs.push_back(std::make_pair(winner, loser));
+	}
 
+	std::vector<int> winners;
+	for (size_t i = 0; i < pairs.size(); i++)
+	{
+		winners.push_back(pairs[i].first); // add only the winners 
+	}
+	FordJohnson(winners); // recursively sort the winners until we have 1 number left
+
+	std::vector<int> mainChain;
+	for (size_t i = 0; i < pairs.size(); i++)
+	{
+		if (pairs[i].first == winners[0]) // find loser paired with the smallest winner
+		{
+			mainChain.push_back(pairs[i].second); // put it at the front
+			break;
+		}
+	}
+	for (size_t i = 0; i < winners.size(); i++)
+		mainChain.push_back(winners[i]);
+
+	std::vector<int> waitingToInsert;
+	for (size_t i = 0; i < pairs.size(); i++)
+	{
+		if (pairs[i].first != winners[0]) // skip loser we already added
+			waitingToInsert.push_back(pairs[i].second);
+	}
 }
 void PmergeMe::FordJohnson(std::deque<int>& deq)
 {
@@ -94,4 +129,9 @@ void PmergeMe::binaryInsert(std::vector<int>& vec, int value)
 void PmergeMe::binaryInsert(std::deque<int>& deq, int value)
 {
 
+}
+
+std::vector<int> PmergeMe::getJacobsthal(int size)
+{
+	
 }

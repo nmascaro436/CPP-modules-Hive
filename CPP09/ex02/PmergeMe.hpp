@@ -29,6 +29,7 @@ class PmergeMe
 	std::deque<int>  _deq;
 	void FordJohnson(std::vector<int>& vec);
 	void FordJohnson(std::deque<int>& deq);
+	std::vector<int> getJacobsthal(int size);
 	void binaryInsert(std::vector<int>& vec, int value);
 	void binaryInsert(std::deque<int>& deq, int value);
 
