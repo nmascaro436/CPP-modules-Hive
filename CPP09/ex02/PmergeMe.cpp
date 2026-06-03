@@ -24,10 +24,7 @@ void PmergeMe::parseInput(int argc, char **argv)
 		for (size_t idx = 0; idx < numStr.length(); idx++) // check each char of number
 		{
 			if (!isdigit(numStr[idx]))
-			{
-				std::cerr << "Error\n";
-				return;
-			}
+				throw std::runtime_error("Error");
 		}
 		int num = std::stoi(numStr);
 		_vec.push_back(num);

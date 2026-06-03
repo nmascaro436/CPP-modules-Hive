@@ -9,7 +9,15 @@ int main (int argc, char **argv)
 	}
 	
 	PmergeMe nums;
-	nums.parseInput(argc, argv);
+	try
+	{
+		nums.parseInput(argc, argv);
+	}
+	catch(...)
+	{
+		std::cerr << "Error\n";
+		return 1;
+	}
 	nums.printBefore();
 	nums.vectorSort();
 	nums.dequeSort();
