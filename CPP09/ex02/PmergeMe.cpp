@@ -37,45 +37,20 @@ void PmergeMe::parseInput(int argc, char **argv)
 
 void PmergeMe::vectorSort()
 {
-	std::cout << "Before: " ;
-	for (int i = 0; i < _vec.size(); i++)
-	{
-		std::cout << _vec[i] << " ";
-	}
-	std::cout << '\n';
-	
 	clock_t start = clock();
 	FordJohnson(_vec);
 	clock_t end = clock();
 	double time = (double)(end - start) / CLOCKS_PER_SEC * 1000000; // convert clock ticks to microseconds
-	std::cout << "After: ";
-	for (int i = 0; i < _vec.size(); i++)
-	{
-		std::cout << _vec[i] << " ";
-	}
-	std::cout << '\n';
+	printAfter();
 	std::cout << "Time to process a range of " << _vec.size() << " elements with std::vector : " << time << " us\n";
 }
 
 void PmergeMe::dequeSort()
 {
-	std::cout << "Before: " ;
-	for (int i = 0; i < _deq.size(); i++)
-	{
-		std::cout << _deq[i] << " ";
-	}
-	std::cout << '\n';
-	
 	clock_t start = clock();
 	FordJohnson(_deq);
 	clock_t end = clock();
 	double time = (double)(end - start) / CLOCKS_PER_SEC * 1000000; // convert clock ticks to microseconds
-	std::cout << "After: ";
-	for (int i = 0; i < _deq.size(); i++)
-	{
-		std::cout << _deq[i] << " ";
-	}
-	std::cout << '\n';
 	std::cout << "Time to process a range of " << _deq.size() << " elements with std::deque : " << time << " us\n";
 }
 
@@ -108,6 +83,7 @@ void PmergeMe::FordJohnson(std::vector<int>& vec)
 			break;
 		}
 	}
+
 	for (size_t i = 0; i < winners.size(); i++)
 		mainChain.push_back(winners[i]); // add the sorted winners to the main chain
 
@@ -138,6 +114,11 @@ void PmergeMe::FordJohnson(std::vector<int>& vec)
 			}
 		}
 	}
+	for (size_t i = 0; i < waitingToInsert.size(); i++) // cleanup loop just in case jacobsthal missed, some numbers it can happen if waitingtoInsert is small
+	{
+    	if (!inserted[i])
+        	binaryInsert(mainChain, waitingToInsert[i]);
+	}
 
 	if (hasOddNum)
 		binaryInsert(mainChain, vec.back()); // insert the left out number
@@ -145,7 +126,73 @@ void PmergeMe::FordJohnson(std::vector<int>& vec)
 }
 void PmergeMe::FordJohnson(std::deque<int>& deq)
 {
+	if (deq.size() <= 1)
+		return ;
+	std::deque<std::pair<int, int>> pairs;
+	bool hasOddNum = deq.size() % 2 != 0;
+	for (size_t i = 0; i + 1 < deq.size(); i += 2)
+	{
+		int winner = std::max(deq[i], deq[i + 1]);
+		int loser = std::min(deq[i], deq[i + 1]);
+		pairs.push_back(std::make_pair(winner, loser));
+	}
 
+	std::deque<int> winners;
+	for (size_t i = 0; i < pairs.size(); i++)
+	{
+		winners.push_back(pairs[i].first);
+	}
+	FordJohnson(winners);
+
+	std::deque<int> mainChain;
+	for (size_t i = 0; i < pairs.size(); i++)
+	{
+		if (pairs[i].first == winners[0])
+		{
+			mainChain.push_back(pairs[i].second);
+			break;
+		}
+	}
+	for (size_t i = 0; i < winners.size(); i++)
+		mainChain.push_back(winners[i]);
+
+	std::deque<int> waitingToInsert;
+	for (size_t i = 0; i < pairs.size(); i++)
+	{
+		if (pairs[i].first != winners[0])
+			waitingToInsert.push_back(pairs[i].second);
+	}
+
+	std::vector<int> jacobsthal = getJacobsthal(waitingToInsert.size());
+	std::vector<bool> inserted(waitingToInsert.size(), false);
+
+	for (size_t i = 2; i < jacobsthal.size(); i++)
+	{
+		int idx = jacobsthal[i] - 1;
+		if (idx < (int)waitingToInsert.size() && !inserted[idx])
+		{
+			binaryInsert(mainChain, waitingToInsert[idx]);
+			inserted[idx] = true;
+		}
+		for (int j = idx - 1; j >= jacobsthal[i - 1] && j >= 0; j--)
+		{
+			if (!inserted[j])
+			{
+				binaryInsert(mainChain, waitingToInsert[j]);
+				inserted[j] = true;
+			}
+		}
+	}
+
+	for (size_t i = 0; i < waitingToInsert.size(); i++)
+	{
+    	if (!inserted[i])
+        	binaryInsert(mainChain, waitingToInsert[i]);
+	}
+
+	if (hasOddNum)
+		binaryInsert(mainChain, deq.back());
+	deq = mainChain;
 }
 void PmergeMe::binaryInsert(std::vector<int>& vec, int value)
 {
@@ -168,7 +215,22 @@ void PmergeMe::binaryInsert(std::vector<int>& vec, int value)
 }
 void PmergeMe::binaryInsert(std::deque<int>& deq, int value)
 {
-
+	int left = 0;
+	int right = deq.size() - 1;
+	while (left <= right)
+	{
+		int mid = (left + right) / 2;
+		if (deq[mid] == value)
+		{
+			left = mid;
+			break;
+		}
+		else if (deq[mid] < value)
+			left = mid + 1;
+		else
+			right = mid - 1;
+	}
+	deq.insert(deq.begin() + left, value);
 }
 
 std::vector<int> PmergeMe::getJacobsthal(int size)
@@ -182,4 +244,24 @@ std::vector<int> PmergeMe::getJacobsthal(int size)
 		jacobsthal.push_back(jacobsthal[n - 1] + 2 * jacobsthal[n - 2]);
 	}
 	return jacobsthal;
+}
+
+void PmergeMe::printBefore()
+{
+	std::cout << "Before: " ;
+	for (size_t i = 0; i < _vec.size(); i++)
+	{
+		std::cout << _vec[i] << " ";
+	}
+	std::cout << '\n';
+}
+
+void PmergeMe::printAfter()
+{
+	std::cout << "After: ";
+	for (size_t i = 0; i < _vec.size(); i++)
+	{
+		std::cout << _vec[i] << " ";
+	}
+	std::cout << '\n';
 }

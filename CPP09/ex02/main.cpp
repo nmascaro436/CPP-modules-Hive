@@ -10,8 +10,9 @@ int main (int argc, char **argv)
 	
 	PmergeMe nums;
 	nums.parseInput(argc, argv);
-	nums.dequeSort();
+	nums.printBefore();
 	nums.vectorSort();
+	nums.dequeSort();
 
 	return 0;
 }

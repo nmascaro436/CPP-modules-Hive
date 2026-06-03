@@ -41,5 +41,6 @@ class PmergeMe
 	void parseInput(int argc, char **argv);
 	void vectorSort();
 	void dequeSort();
-
+	void printBefore();
+	void printAfter();
 };
