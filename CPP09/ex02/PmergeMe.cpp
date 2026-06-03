@@ -59,140 +59,87 @@ void PmergeMe::FordJohnson(std::vector<int>& vec)
 	if (vec.size() <= 1) // already sorted and this is where recursion stops
 		return ;
 	std::vector<std::pair<int, int>> pairs; // std::pair holds two values together
-	bool hasOddNum = vec.size() % 2 != 0; // remembers if we have a leftover element with no pair
+	bool hasOddNum = (vec.size() % 2 != 0); // remembers if we have a leftover element with no pair
 	for (size_t i = 0; i + 1 < vec.size(); i += 2) // we make sure we don't go out of bounds and we advance two positions at a time
 	{
-		int winner = std::max(vec[i], vec[i + 1]); // picks larger
-		int loser = std::min(vec[i], vec[i + 1]); // picks smaller
-		pairs.push_back(std::make_pair(winner, loser));
+		if (vec[i] > vec[i + 1])
+			pairs.push_back(std::make_pair(vec[i], vec[i +1]));
+		else
+			pairs.push_back(std::make_pair(vec[i + 1], vec[i]));
 	}
-
 	std::vector<int> winners;
 	for (size_t i = 0; i < pairs.size(); i++)
 	{
 		winners.push_back(pairs[i].first); // add only the winners 
 	}
+
 	FordJohnson(winners); // recursively sort the winners until we have 1 number left
-
 	std::vector<int> mainChain;
-	for (size_t i = 0; i < pairs.size(); i++)
+
+    mainChain.push_back(pairs[0].second);
+
+    for (size_t i = 0; i < winners.size(); i++)
 	{
-		if (pairs[i].first == winners[0]) // find loser paired with the smallest winner
-		{
-			mainChain.push_back(pairs[i].second); // put it at the front
-			break;
-		}
+        mainChain.push_back(winners[i]); // add the sorted winners to the main chain
 	}
-
-	for (size_t i = 0; i < winners.size(); i++)
-		mainChain.push_back(winners[i]); // add the sorted winners to the main chain
-
+	
 	std::vector<int> waitingToInsert;
-	for (size_t i = 0; i < pairs.size(); i++)
-	{
-		if (pairs[i].first != winners[0]) // skip loser we already added
-			waitingToInsert.push_back(pairs[i].second); // collection of losers that we need to add
-	}
-
-	std::vector<int> jacobsthal = getJacobsthal(waitingToInsert.size()); // gets the sequence for the size of numbers we need to add
-	std::vector<bool> inserted(waitingToInsert.size(), false); //tracks which losers have been inserted
-
-	for (size_t i = 2; i < jacobsthal.size(); i++)
-	{
-		int idx = jacobsthal[i] - 1; // jacobsthal numbers start counting at 1, so we substract 1 so its like the array (start at 0)
-		if (idx < (int)waitingToInsert.size() && !inserted[idx]) // if index is valid and number isn't inserted yet
-		{
-			binaryInsert(mainChain, waitingToInsert[idx]); // insert
-			inserted[idx] = true; // marks it as done
-		}
-		for (int j = idx - 1; j >= jacobsthal[i - 1] && j >= 0; j--) // fill everything between the current and previous Jacobsthal number
-		{
-			if (!inserted[j])
-			{
-				binaryInsert(mainChain, waitingToInsert[j]);
-				inserted[j] = true;
-			}
-		}
-	}
-	for (size_t i = 0; i < waitingToInsert.size(); i++) // cleanup loop just in case jacobsthal missed, some numbers it can happen if waitingtoInsert is small
-	{
-    	if (!inserted[i])
-        	binaryInsert(mainChain, waitingToInsert[i]);
-	}
+	for (size_t i = 1; i < pairs.size(); i++)
+		waitingToInsert.push_back(pairs[i].second); // collection of losers that we need to add
+	
+	std::vector<int> order = getJacobsthal(waitingToInsert.size());
+	for (size_t i = 0; i < order.size(); i++)
+    {
+        binaryInsert(mainChain, waitingToInsert[order[i]]);
+    }
 
 	if (hasOddNum)
 		binaryInsert(mainChain, vec.back()); // insert the left out number
 	vec = mainChain; // writes result back to original vector
 }
+
 void PmergeMe::FordJohnson(std::deque<int>& deq)
 {
-	if (deq.size() <= 1)
+	if (deq.size() <= 1) // already sorted and this is where recursion stops
 		return ;
-	std::deque<std::pair<int, int>> pairs;
-	bool hasOddNum = deq.size() % 2 != 0;
-	for (size_t i = 0; i + 1 < deq.size(); i += 2)
+	std::deque<std::pair<int, int>> pairs; // std::pair holds two values together
+	bool hasOddNum = (deq.size() % 2 != 0); // remembers if we have a leftover element with no pair
+	for (size_t i = 0; i + 1 < deq.size(); i += 2) // we make sure we don't go out of bounds and we advance two positions at a time
 	{
-		int winner = std::max(deq[i], deq[i + 1]);
-		int loser = std::min(deq[i], deq[i + 1]);
-		pairs.push_back(std::make_pair(winner, loser));
+		if (deq[i] > deq[i + 1])
+			pairs.push_back(std::make_pair(deq[i], deq[i +1]));
+		else
+			pairs.push_back(std::make_pair(deq[i + 1], deq[i]));
 	}
-
 	std::deque<int> winners;
 	for (size_t i = 0; i < pairs.size(); i++)
 	{
-		winners.push_back(pairs[i].first);
+		winners.push_back(pairs[i].first); // add only the winners 
 	}
-	FordJohnson(winners);
 
+	FordJohnson(winners); // recursively sort the winners until we have 1 number left
 	std::deque<int> mainChain;
-	for (size_t i = 0; i < pairs.size(); i++)
-	{
-		if (pairs[i].first == winners[0])
-		{
-			mainChain.push_back(pairs[i].second);
-			break;
-		}
-	}
-	for (size_t i = 0; i < winners.size(); i++)
-		mainChain.push_back(winners[i]);
 
+    mainChain.push_back(pairs[0].second);
+
+    for (size_t i = 0; i < winners.size(); i++)
+	{
+        mainChain.push_back(winners[i]); // add the sorted winners to the main chain
+	}
+	
 	std::deque<int> waitingToInsert;
-	for (size_t i = 0; i < pairs.size(); i++)
-	{
-		if (pairs[i].first != winners[0])
-			waitingToInsert.push_back(pairs[i].second);
-	}
-
-	std::vector<int> jacobsthal = getJacobsthal(waitingToInsert.size());
-	std::vector<bool> inserted(waitingToInsert.size(), false);
-
-	for (size_t i = 2; i < jacobsthal.size(); i++)
-	{
-		int idx = jacobsthal[i] - 1;
-		if (idx < (int)waitingToInsert.size() && !inserted[idx])
-		{
-			binaryInsert(mainChain, waitingToInsert[idx]);
-			inserted[idx] = true;
-		}
-		for (int j = idx - 1; j >= jacobsthal[i - 1] && j >= 0; j--)
-		{
-			if (!inserted[j])
-			{
-				binaryInsert(mainChain, waitingToInsert[j]);
-				inserted[j] = true;
-			}
-		}
-	}
-
-	for (size_t i = 0; i < waitingToInsert.size(); i++)
-	{
-    	if (!inserted[i])
-        	binaryInsert(mainChain, waitingToInsert[i]);
-	}
+	for (size_t i = 1; i < pairs.size(); i++)
+		waitingToInsert.push_back(pairs[i].second); // collection of losers that we need to add
+	
+	std::vector<int> order = getJacobsthal(waitingToInsert.size());
+	for (size_t i = 0; i < order.size(); i++)
+    {
+        binaryInsert(mainChain, waitingToInsert[order[i]]);
+    }
 
 	if (hasOddNum)
-		binaryInsert(mainChain, deq.back());
-	deq = mainChain;
+		binaryInsert(mainChain, deq.back()); // insert the left out number
+	deq = mainChain; // writes result back to original vector
 }
 void PmergeMe::binaryInsert(std::vector<int>& vec, int value)
 {
@@ -235,15 +182,45 @@ void PmergeMe::binaryInsert(std::deque<int>& deq, int value)
 
 std::vector<int> PmergeMe::getJacobsthal(int size)
 {
-	std::vector<int> jacobsthal;
-	jacobsthal.push_back(0); // jacobsthal sequence starts with these
-	jacobsthal.push_back(1);
-	while (jacobsthal.back() < size) // keep generating numbers for the sequence until we exceed size we have
-	{
-		int n = jacobsthal.size();
-		jacobsthal.push_back(jacobsthal[n - 1] + 2 * jacobsthal[n - 2]);
-	}
-	return jacobsthal;
+	std::vector<int> order;
+
+	if (size == 0)
+    	return order;
+
+    std::vector<int> jac;
+    jac.push_back(0);
+    jac.push_back(1);
+
+    while (jac.back() < size)
+        jac.push_back(jac[jac.size() - 1] + 2 * jac[jac.size() - 2]);
+
+    std::vector<bool> used(size, false);
+
+    order.push_back(0);
+    used[0] = true;
+
+    for (size_t i = 3; i < jac.size(); i++)
+    {
+        int upper = std::min(jac[i], size);
+        int lower = jac[i - 1];
+
+        for (int j = upper; j > lower; j--)
+        {
+            int index = j - 1;
+
+            if (index < size && !used[index])
+            {
+                order.push_back(index);
+                used[index] = true;
+            }
+        }
+    }
+    for (int i = 0; i < size; i++)
+    {
+        if (!used[i])
+            order.push_back(i);
+    }
+    return order;
 }
 
 void PmergeMe::printBefore()
