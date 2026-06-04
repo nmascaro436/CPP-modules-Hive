@@ -55,6 +55,7 @@ void PmergeMe::FordJohnson(std::vector<int>& vec)
 {
 	if (vec.size() <= 1) // already sorted and this is where recursion stops
 		return ;
+
 	std::vector<std::pair<int, int>> pairs; // std::pair holds two values together
 	bool hasOddNum = (vec.size() % 2 != 0); // remembers if we have a leftover element with no pair
 	for (size_t i = 0; i + 1 < vec.size(); i += 2) // we make sure we don't go out of bounds and we advance two positions at a time
@@ -64,6 +65,7 @@ void PmergeMe::FordJohnson(std::vector<int>& vec)
 		else
 			pairs.push_back(std::make_pair(vec[i + 1], vec[i]));
 	}
+
 	std::vector<int> winners;
 	for (size_t i = 0; i < pairs.size(); i++)
 	{
@@ -71,9 +73,22 @@ void PmergeMe::FordJohnson(std::vector<int>& vec)
 	}
 
 	FordJohnson(winners); // recursively sort the winners until we have 1 number left
+	std::vector<std::pair<int, int>> sortedPairs; //rebuild pairs in the new sorted winner order
+	for (size_t i = 0; i < winners.size(); i++)
+	{
+		for (size_t j = 0; j < pairs.size(); j++)
+		{
+			if (pairs[j].first == winners[i])
+			{
+				sortedPairs.push_back(pairs[j]);
+				pairs.erase(pairs.begin() + j); // remove to handle duplicates
+				break;
+			}
+		}
+	}
+	
 	std::vector<int> mainChain;
-
-    mainChain.push_back(pairs[0].second);
+    mainChain.push_back(sortedPairs[0].second);
 
     for (size_t i = 0; i < winners.size(); i++)
 	{
@@ -81,8 +96,8 @@ void PmergeMe::FordJohnson(std::vector<int>& vec)
 	}
 	
 	std::vector<int> waitingToInsert;
-	for (size_t i = 1; i < pairs.size(); i++)
-		waitingToInsert.push_back(pairs[i].second); // collection of losers that we need to add
+	for (size_t i = 1; i < sortedPairs.size(); i++)
+		waitingToInsert.push_back(sortedPairs[i].second); // collection of losers that we need to add
 	
 	std::vector<int> order = getJacobsthal(waitingToInsert.size());
 	for (size_t i = 0; i < order.size(); i++)
@@ -115,9 +130,24 @@ void PmergeMe::FordJohnson(std::deque<int>& deq)
 	}
 
 	FordJohnson(winners); // recursively sort the winners until we have 1 number left
+
+	std::deque<std::pair<int, int>> sortedPairs; //rebuild pairs in the new sorted winner order
+	for (size_t i = 0; i < winners.size(); i++)
+	{
+		for (size_t j = 0; j < pairs.size(); j++)
+		{
+			if (pairs[j].first == winners[i])
+			{
+				sortedPairs.push_back(pairs[j]);
+				pairs.erase(pairs.begin() + j); // remove to handle duplicates
+				break;
+			}
+		}
+	}
+
 	std::deque<int> mainChain;
 
-    mainChain.push_back(pairs[0].second);
+    mainChain.push_back(sortedPairs[0].second);
 
     for (size_t i = 0; i < winners.size(); i++)
 	{
@@ -125,8 +155,8 @@ void PmergeMe::FordJohnson(std::deque<int>& deq)
 	}
 	
 	std::deque<int> waitingToInsert;
-	for (size_t i = 1; i < pairs.size(); i++)
-		waitingToInsert.push_back(pairs[i].second); // collection of losers that we need to add
+	for (size_t i = 1; i < sortedPairs.size(); i++)
+		waitingToInsert.push_back(sortedPairs[i].second); // collection of losers that we need to add
 	
 	std::vector<int> order = getJacobsthal(waitingToInsert.size());
 	for (size_t i = 0; i < order.size(); i++)
