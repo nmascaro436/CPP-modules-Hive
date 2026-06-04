@@ -33,7 +33,7 @@ void RPN::processOperation(const std::string& str)
 			if (token[0] == '+')
 				operation.push(firstNum + secondNum);
 			else if (token[0] == '-')
-				operation.push(secondNum - firstNum);
+				operation.push(secondNum - firstNum); // order matters in this operation
 			else if (token[0] == '*')
 				operation.push(firstNum * secondNum);
 			else
@@ -43,7 +43,7 @@ void RPN::processOperation(const std::string& str)
 					std::cerr << "Error: division by zero\n";
 					return;
 				}
-				operation.push(secondNum / firstNum);
+				operation.push(secondNum / firstNum); // order matters in this operation
 			}
 		}
 		else
