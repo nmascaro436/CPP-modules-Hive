@@ -60,8 +60,8 @@ void PmergeMe::FordJohnson(std::vector<int>& vec)
 	bool hasOddNum = (vec.size() % 2 != 0); // remembers if we have a leftover element with no pair
 	for (size_t i = 0; i + 1 < vec.size(); i += 2) // we make sure we don't go out of bounds and we advance two positions at a time
 	{
-		if (vec[i] > vec[i + 1])
-			pairs.push_back(std::make_pair(vec[i], vec[i +1]));
+		if (vec[i] > vec[i + 1]) // make pairs and put bigger number first
+			pairs.push_back(std::make_pair(vec[i], vec[i +1])); 
 		else
 			pairs.push_back(std::make_pair(vec[i + 1], vec[i]));
 	}
@@ -72,23 +72,25 @@ void PmergeMe::FordJohnson(std::vector<int>& vec)
 		winners.push_back(pairs[i].first); // add only the winners 
 	}
 
-	FordJohnson(winners); // recursively sort the winners until we have 1 number left
+	FordJohnson(winners); // recursively sort the winners
+
 	std::vector<std::pair<int, int>> sortedPairs; //rebuild pairs in the new sorted winner order
-	for (size_t i = 0; i < winners.size(); i++)
+	for (size_t i = 0; i < winners.size(); i++) // iterate sorted winners
 	{
-		for (size_t j = 0; j < pairs.size(); j++)
+		for (size_t j = 0; j < pairs.size(); j++) // search in pairs
 		{
-			if (pairs[j].first == winners[i])
+			if (pairs[j].first == winners[i]) // found a match
 			{
-				sortedPairs.push_back(pairs[j]);
-				pairs.erase(pairs.begin() + j); // remove to handle duplicates
-				break;
+				sortedPairs.push_back(pairs[j]); // save it
+				pairs.erase(pairs.begin() + j); // remove the pair we just used to handle duplicates, so the match doesn't happen on the same pair
+				break; // move on to the next winner
 			}
 		}
 	}
 	
 	std::vector<int> mainChain;
-    mainChain.push_back(sortedPairs[0].second);
+
+    mainChain.push_back(sortedPairs[0].second); // push loser of smallest winner
 
     for (size_t i = 0; i < winners.size(); i++)
 	{
@@ -99,7 +101,7 @@ void PmergeMe::FordJohnson(std::vector<int>& vec)
 	for (size_t i = 1; i < sortedPairs.size(); i++)
 		waitingToInsert.push_back(sortedPairs[i].second); // collection of losers that we need to add
 	
-	std::vector<int> order = getJacobsthal(waitingToInsert.size());
+	std::vector<int> order = getJacobsthal(waitingToInsert.size()); // insert them in optimal order to minimize comparisons
 	for (size_t i = 0; i < order.size(); i++)
     {
         binaryInsert(mainChain, waitingToInsert[order[i]]);
@@ -112,26 +114,28 @@ void PmergeMe::FordJohnson(std::vector<int>& vec)
 
 void PmergeMe::FordJohnson(std::deque<int>& deq)
 {
-	if (deq.size() <= 1) // already sorted and this is where recursion stops
-		return ;
-	std::deque<std::pair<int, int>> pairs; // std::pair holds two values together
-	bool hasOddNum = (deq.size() % 2 != 0); // remembers if we have a leftover element with no pair
-	for (size_t i = 0; i + 1 < deq.size(); i += 2) // we make sure we don't go out of bounds and we advance two positions at a time
+	if (deq.size() <= 1)
+		return;
+	
+	std::deque<std::pair<int, int>> pairs;
+	bool hasOddNum = (deq.size() % 2 != 0);
+	for (size_t i = 0; i + 1 < deq.size(); i += 2)
 	{
 		if (deq[i] > deq[i + 1])
 			pairs.push_back(std::make_pair(deq[i], deq[i +1]));
 		else
 			pairs.push_back(std::make_pair(deq[i + 1], deq[i]));
 	}
+
 	std::deque<int> winners;
 	for (size_t i = 0; i < pairs.size(); i++)
 	{
-		winners.push_back(pairs[i].first); // add only the winners 
+		winners.push_back(pairs[i].first); 
 	}
 
-	FordJohnson(winners); // recursively sort the winners until we have 1 number left
+	FordJohnson(winners);
 
-	std::deque<std::pair<int, int>> sortedPairs; //rebuild pairs in the new sorted winner order
+	std::deque<std::pair<int, int>> sortedPairs;
 	for (size_t i = 0; i < winners.size(); i++)
 	{
 		for (size_t j = 0; j < pairs.size(); j++)
@@ -139,7 +143,7 @@ void PmergeMe::FordJohnson(std::deque<int>& deq)
 			if (pairs[j].first == winners[i])
 			{
 				sortedPairs.push_back(pairs[j]);
-				pairs.erase(pairs.begin() + j); // remove to handle duplicates
+				pairs.erase(pairs.begin() + j);
 				break;
 			}
 		}
@@ -151,12 +155,12 @@ void PmergeMe::FordJohnson(std::deque<int>& deq)
 
     for (size_t i = 0; i < winners.size(); i++)
 	{
-        mainChain.push_back(winners[i]); // add the sorted winners to the main chain
+        mainChain.push_back(winners[i]);
 	}
 	
 	std::deque<int> waitingToInsert;
 	for (size_t i = 1; i < sortedPairs.size(); i++)
-		waitingToInsert.push_back(sortedPairs[i].second); // collection of losers that we need to add
+		waitingToInsert.push_back(sortedPairs[i].second);
 	
 	std::vector<int> order = getJacobsthal(waitingToInsert.size());
 	for (size_t i = 0; i < order.size(); i++)
@@ -165,8 +169,8 @@ void PmergeMe::FordJohnson(std::deque<int>& deq)
     }
 
 	if (hasOddNum)
-		binaryInsert(mainChain, deq.back()); // insert the left out number
-	deq = mainChain; // writes result back to original vector
+		binaryInsert(mainChain, deq.back());
+	deq = mainChain;
 }
 void PmergeMe::binaryInsert(std::vector<int>& vec, int value)
 {
@@ -207,42 +211,42 @@ void PmergeMe::binaryInsert(std::deque<int>& deq, int value)
 	deq.insert(deq.begin() + left, value);
 }
 
-std::vector<int> PmergeMe::getJacobsthal(int size)
+std::vector<int> PmergeMe::getJacobsthal(int size) // returns sequence of indices telling order to insert the losers, minimizes the comparisons
 {
 	std::vector<int> order;
 
-	if (size == 0)
-    	return order;
+	if (size == 0) // no losers to insert
+    	return order; // return empty
 
     std::vector<int> jac;
-    jac.push_back(0);
+    jac.push_back(0); // first numbers of jacobsthal sequence
     jac.push_back(1);
 
-    while (jac.back() < size)
+    while (jac.back() < size) // constructs the rest of the sequence until the last on is at least "size"
         jac.push_back(jac[jac.size() - 1] + 2 * jac[jac.size() - 2]);
 
-    std::vector<bool> used(size, false);
+    std::vector<bool> used(size, false); // track which indices were used
 
-    order.push_back(0);
+    order.push_back(0); // always start with index 0, Ford-Johnson always inserts the first loser first
     used[0] = true;
 
-    for (size_t i = 3; i < jac.size(); i++)
+    for (size_t i = 3; i < jac.size(); i++) // skip first 3 values, they're kinda like base case to build the sequence, not useful in this case
     {
-        int upper = std::min(jac[i], size);
-        int lower = jac[i - 1];
+        int upper = std::min(jac[i], size); // current jacobsthal number
+        int lower = jac[i - 1]; // previous number
 
-        for (int j = upper; j > lower; j--)
+        for (int j = upper; j > lower; j--) // go backwards in each block from the sequence
         {
-            int index = j - 1;
+            int index = j - 1; // convert to index
 
             if (index < size && !used[index])
             {
-                order.push_back(index);
-                used[index] = true;
+                order.push_back(index); //add number
+                used[index] = true; // mark as done
             }
         }
     }
-    for (int i = 0; i < size; i++)
+    for (int i = 0; i < size; i++) // safety loop just in case some indices were forgotten
     {
         if (!used[i])
             order.push_back(i);
