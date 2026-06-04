@@ -16,13 +16,11 @@
  * - Jacobsthal numbers give an order that keeps the search range as small as possible for
  * 	each insertion
  * 
- * 
- * 
  * Vector stores elements contiguously in memory and has fast random access -> good for binary search
  * Deque stores elements in chunks and has fast insertion at front and back -> good for building main chain
  * 
  * Vector is faster because it keeps everything together in one place and since the Ford-Johnson
- * constantly loops up elements by index, it's faster.
+ * constantly looks up elements by index, it's faster.
  */
 
 class PmergeMe
