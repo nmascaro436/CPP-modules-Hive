@@ -20,7 +20,7 @@ void RPN::processOperation(const std::string& str)
 	while (iss >> token)
 	{
 		if (token.length() == 1 && isdigit(token[0])) // if token is number
-			operation.push(std::stoi(token)); // convert to int and add to stack
+			operation.push(std::stoll(token)); // convert to long long and add to stack
 		else if (token.length() == 1 && (token[0] == '+' || token[0] == '-' || token[0] == '*' || token[0] == '/')) 
 		{
 			if (operation.size() < 2) // need at least 2 numbers in the stack
@@ -28,8 +28,8 @@ void RPN::processOperation(const std::string& str)
 				std::cerr << "Error: not enough numbers\n";
 				return;
 			}
-			int firstNum = operation.top(); operation.pop();
-			int secondNum = operation.top(); operation.pop();
+			long long firstNum = operation.top(); operation.pop();
+			long long secondNum = operation.top(); operation.pop();
 			if (token[0] == '+')
 				operation.push(firstNum + secondNum);
 			else if (token[0] == '-')

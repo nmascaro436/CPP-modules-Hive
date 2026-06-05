@@ -13,7 +13,7 @@
 class RPN
 {
 	private:
-	std::stack<int> operation;
+	std::stack<long long> operation;
 	
 	public:
 	RPN();
